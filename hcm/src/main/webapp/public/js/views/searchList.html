@@ -1,0 +1,439 @@
+<ul id="listview" style="width: 90%;margin: 0 auto; background: #fff;" aria-label="list using array" 
+    data-bind="ojComponent: {component: 'ojListView', data: dataSource1, item: {template: 'server_template'}, selectionMode: 'single'}">
+</ul>
+
+<script type="text/html" id="server_template">
+    <li data-bind="attr: {id: $data['person_number']}">
+        <div class="oj-flex">
+            <div class="oj-lg-2 oj-md-2 oj-sm-12">
+                <img class="imageStyle" data-bind="attr: {src: image}"></img>
+            </div>
+            <div class="oj-lg-9 oj-md-9 oj-sm-9 smallPadding2">
+                <div class="oj-flex row ">
+                    <div class="oj-lg-12 oj-md-12 oj-sm-12">
+                        <span class="header" style="color: #4F4F4F" data-bind="text: department"></span>
+                    </div>
+                </div>
+                <div class="oj-flex row smallPadding">
+                    <div class="oj-lg-6 oj-md-6 oj-sm-12">
+                        <span class="data"><b style="color: #707070">従業員番号 : </b><span  style="color: #4F4F4F" data-bind="text: person_number"></span></span>
+                    </div>
+                    <div class="oj-lg-6 oj-md-6 oj-sm-12">
+                        <span class="data"><b style="color: #707070">氏名: </b><span style="color: #4F4F4F" data-bind="text: name"></span></span>
+                    </div>
+
+                    <div class="oj-lg-4 oj-md-4 oj-sm-12 smallPadding">
+                        <span class="data"><b style="color: #707070">キャリアバンド: </b><span style="color: #4F4F4F" data-bind="text: grade_name"></span></span>
+                    </div>
+                    <div class="oj-lg-4 oj-md-4 oj-sm-12 smallPadding">
+                        <span class="data"><b style="color: #707070">職責区分: </b><span style="color: #4F4F4F" data-bind="text: grade_step_name"></span></span>
+                    </div>
+                    <div class="oj-lg-4 oj-md-4 oj-sm-12 smallPadding">
+                        <span class="data"><b style="color: #707070">該当箇所: </b><span style="color: #4F4F4F" data-bind="html: highhtml"></span></span>
+                    </div>
+                </div>
+            </div>
+            <div class="oj-lg-1 oj-md-1 oj-sm-3 checkLayout">
+                <div id="checkCell" 
+                     data-bind=
+                     "ojComponent: {component: 'ojCheckboxset',value: checkValue}" >
+                    <span class="oj-choice-item">
+                        <input id="agreeRequired" type="checkbox" value="1">
+                        <label for="agreeRequired"></label>
+                    </span> 
+                </div>
+            </div>
+        </div>
+    </div>
+</li>
+</script>
+
+<div id="popupWrapper">
+    <div style="display:none" id="popup1"   data-bind="ojComponent:{component: 'ojPopup'}">
+        <div style="background: white;width: 300px;padding: 0px;    margin: 0px 0px 0px 20px;" data-bind="ojComponent: {component: 'ojCollapsible'}">
+            <h3 >所属</h3>
+            <div id="checkboxSetId1" aria-labelledby="mainlabelid"
+                 data-bind="ojComponent: {
+          component: 'ojCheckboxset', 
+          value: currentColor1}" >
+                <!-- oj-choice-item is required for the component to work -->
+                <!-- ko foreach: departments -->
+                <span class="oj-choice-item">
+                    <input type="checkbox" data-bind="value: value, attr:{id: id}">
+                    <label data-bind="text: value, attr:{for: id}"></label>
+                </span>
+               	<!-- /ko -->
+            </div>
+        </div>
+        <div style="background: white;width: 300px;padding: 0px;    margin: 0px 0px 0px 20px;" data-bind="ojComponent: {component: 'ojCollapsible'}">
+            <h3 >キャリアバンド</h3>
+            <div id="checkboxSetId2" aria-labelledby="mainlabelid"
+                 data-bind="ojComponent: {
+          component: 'ojCheckboxset', 
+          value: currentColor2}" >
+                <!-- oj-choice-item is required for the component to work -->
+				<!-- ko foreach: grades -->
+                <span class="oj-choice-item">
+                    <input type="checkbox" data-bind="value: value, attr:{id: id}">
+                    <label data-bind="text: value, attr:{for: id}"></label>
+                </span>
+               	<!-- /ko -->
+            </div>
+        </div>
+        <div style="background: white;width: 300px;padding: 0px;    margin: 0px 0px 0px 20px;" data-bind="ojComponent: {component: 'ojCollapsible'}">
+            <h3 >担当商品</h3>
+            <div id="checkboxSetId3" aria-labelledby="mainlabelid"
+                 data-bind="ojComponent: {
+          component: 'ojCheckboxset', 
+          value: currentColor3}" >
+                <!-- oj-choice-item is required for the component to work -->
+                <!-- ko foreach: products -->
+                <span class="oj-choice-item">
+                    <input type="checkbox" data-bind="value: value, attr:{id: id}">
+                    <label data-bind="text: value, attr:{for: id}"></label>
+                </span>
+               	<!-- /ko -->
+            </div>
+        </div>
+        <div style="background: white;width: 300px;padding: 0px;    margin: 0px 0px 0px 20px;" data-bind="ojComponent: {component: 'ojCollapsible'}">
+            <h3 >機能</h3>
+            <div id="checkboxSetId4" aria-labelledby="mainlabelid"
+                 data-bind="ojComponent: {
+          component: 'ojCheckboxset', 
+          value: currentColor4}" >
+                <!-- oj-choice-item is required for the component to work -->
+
+                <!-- ko foreach: functions -->
+                <span class="oj-choice-item">
+                    <input type="checkbox" data-bind="value: value, attr:{id: id}">
+                    <label data-bind="text: value, attr:{for: id}"></label>
+                </span>
+               	<!-- /ko -->
+            </div>
+        </div>
+        <div style="background: white;width: 300px;padding: 0px;    margin: 0px 0px 0px 20px;" data-bind="ojComponent: {component: 'ojCollapsible'}">
+            <h3 >勤務地</h3>
+            <div id="checkboxSetId5" aria-labelledby="mainlabelid"
+                 data-bind="ojComponent: {
+          component: 'ojCheckboxset', 
+          value: currentColor5}" >
+                <!-- oj-choice-item is required for the component to work -->
+
+                <!-- ko foreach: locations -->
+                <span class="oj-choice-item">
+                    <input type="checkbox" data-bind="value: value, attr:{id: id}">
+                    <label data-bind="text: value, attr:{for: id}"></label>
+                </span>
+               	<!-- /ko -->
+            </div>
+        </div>
+        <div style="background: white;width: 300px;padding: 0px;    margin: 0px 0px 0px 20px;" data-bind="ojComponent: {component: 'ojCollapsible'}">
+            <h3 >海外経験</h3>
+            <div id="checkboxSetId6" aria-labelledby="mainlabelid"
+                 data-bind="ojComponent: {
+          component: 'ojCheckboxset', 
+          value: currentColor6}" >
+                <!-- oj-choice-item is required for the component to work -->
+
+                <span class="oj-choice-item">
+                    <input id="blueopt6" type="checkbox" value="Yes">
+                    <label for="blueopt6">yes</label>
+                </span>
+                <span class="oj-choice-item">
+                    <input id="greenopt6" type="checkbox" value="No">
+                    <label for="greenopt6">no</label>
+                </span>
+            </div>
+        </div>
+        <div style="background: white;width: 300px;padding: 0px;    margin: 0px 0px 0px 20px;" data-bind="ojComponent: {component: 'ojCollapsible'}">
+            <h3 >年齢</h3>
+            <div id="checkboxSetId7" aria-labelledby="mainlabelid"
+                 data-bind="ojComponent: {
+          component: 'ojCheckboxset', 
+          value: currentColor7}" >
+                <!-- oj-choice-item is required for the component to work -->
+
+                <span class="oj-choice-item">
+                    <input id="blueopt7" type="checkbox" value="[20 TO 30] ">
+                    <label for="blueopt7">20-30</label>
+                </span>
+                <span class="oj-choice-item">
+                    <input id="greenopt7" type="checkbox" value="[30 TO 40]">
+                    <label for="greenopt7">30-40</label>
+                </span>
+            </div>
+        </div>
+        <div style="background: white;width: 300px;padding: 0px;margin: 0px 0px 0px 20px;" data-bind="ojComponent: {component: 'ojCollapsible'}">
+            <h3 >入社年次</h3>
+            <div id="checkboxSetId8" aria-labelledby="mainlabelid"
+                 data-bind="ojComponent: {
+          component: 'ojCheckboxset', 
+          value: currentColor8}" >
+                <!-- oj-choice-item is required for the component to work -->
+
+                <span class="oj-choice-item">
+                    <input id="blueopt8" type="checkbox" value="[1990 TO 1999] ">
+                    <label for="blueopt8">1990s</label>
+                </span>
+                <span class="oj-choice-item">
+                    <input id="greenopt8" type="checkbox" value="[2000 TO 2017]">
+                    <label for="greenopt8">2000s</label>
+                </span>
+            </div>
+        </div>
+        <div style="background: white;width: 300px;padding: 0px;margin: 0px 0px 0px 20px;" data-bind="ojComponent: {component: 'ojCollapsible'}">
+            <h3 >勤続年数</h3>
+            <div id="checkboxSetId9" aria-labelledby="mainlabelid"
+                 data-bind="ojComponent: {
+          component: 'ojCheckboxset', 
+          value: currentColor9}" >
+                <!-- oj-choice-item is required for the component to work -->
+
+                <span class="oj-choice-item">
+                    <input id="blueopt9" type="checkbox" value="[0 TO 5]">
+                    <label for="blueopt9"><5</label>
+                </span>
+                <span class="oj-choice-item">
+                    <input id="greenopt9" type="checkbox" value="[5 TO 10]">
+                    <label for="greenopt9">5-10</label>
+                </span>
+                <span class="oj-choice-item">
+                    <input id="redopt9" type="checkbox" value="[10 TO 15]">
+                    <label for="redopt9">10-15</label>
+                </span>
+            </div>
+        </div>
+        <div style="background: white;width: 300px;padding: 0px;margin: 0px 0px 0px 20px;" data-bind="ojComponent: {component: 'ojCollapsible'}">
+            <h3 >学歴</h3>
+            <div id="checkboxSetId10" aria-labelledby="mainlabelid"
+                 data-bind="ojComponent: {
+          component: 'ojCheckboxset', 
+          value: currentColor10}" >
+                <!-- oj-choice-item is required for the component to work -->
+
+                <span class="oj-choice-item">
+                    <input id="highschool" type="checkbox" value="高専卒">
+                    <label for="highschool">高専卒</label>
+                </span>
+                <span class="oj-choice-item">
+                    <input id="graduate" type="checkbox" value="四大卒">
+                    <label for="graduate">四大卒</label>
+                </span>
+                <span class="oj-choice-item">
+                    <input id="masters" type="checkbox" value="大学院卒">
+                    <label for="masters">大学院卒</label>
+                </span>
+            </div>
+        </div>
+        <div style="background: white;width: 300px;padding: 0px;margin: 0px 0px 20px 20px;" data-bind="ojComponent: {component: 'ojCollapsible'}">
+            <h3 >スキル</h3>
+            <div></div>
+        </div>
+
+        <div style="text-align: right;">
+            <input id="applyButton" type="button" 
+                   data-bind="click: applyButtonClick, 
+                      ojComponent: {component: 'ojButton', label: '適用'}"/>
+
+            <input id="resetButton" type="submit" 
+                   data-bind="click: resetButtonClick, 
+                      ojComponent: {component: 'ojButton', label: 'リセット'}"/>
+        </div>
+    </div>
+
+    <button  id="btnGo" 
+             data-bind="ojComponent: {component: 'ojButton', label: 'フィルタ'},
+               click: function()
+               {
+                 $('#popup1').ojPopup('open', '#btnGo');
+               }">
+    </button>
+</div>
+
+<div class="empTableContainer">
+    <table id="searchTable" summary="Department List" aria-label="Departments Table"
+           data-bind="ojComponent: {component: 'ojTable',
+                            data: dataSource2,
+                            columns: [{headerText: '写真',
+                                       headerStyle: 'min-width: 7em; max-width: 7em; width: 7em',
+                                       headerClassName: 'header-style',
+                                       style: 'min-width: 7em; max-width: 7em; width: 7em',
+                                       className: 'oj-read-only ',
+                                       sortProperty: 'image'},
+                                      {headerText: '従業員番号',
+                                       headerClassName: 'header-style',
+                                       headerStyle: 'min-width: 8em; max-width: 8em; width: 8em',
+                                       style: 'min-width: 8em; max-width: 8em; width:8em',
+                                       className: 'oj-read-only',
+                                       sortProperty: 'person_number'},
+                                      {headerText: '氏名',
+                                       headerStyle: 'min-width: 12em; max-width: 12em; width: 12em',
+                                      headerClassName: 'header-style',
+                                       style: 'min-width: 12em; max-width: 12em; width: 12em',
+                                       className: 'oj-read-only',
+                                       sortProperty: 'name'},
+                                       {headerText: '年齢',
+                                       headerStyle: 'min-width: 8em; max-width: 8em; width: 8em',
+                                      headerClassName: 'header-style',
+                                       style: 'min-width: 8em; max-width: 8em; width: 8em',
+                                       className: 'oj-read-only',
+                                       sortProperty: 'age'},
+                                                                          {headerText: '入社年次',
+                                       headerStyle: 'min-width: 8em; max-width: 8em; width: 8em',
+                                      headerClassName: 'header-style',
+                                       style: 'min-width: 8em; max-width: 8em; width: 8em',
+                                       className: 'oj-read-only',
+                                       sortProperty: 'hired_year'},
+                                        {headerText: '所属',
+                                       headerStyle: 'min-width: 12em; max-width: 12em; width: 12em',
+                                      headerClassName: 'header-style',
+                                       style: 'min-width: 12em; max-width: 12em; width: 12em',
+                                       className: 'oj-read-only',
+                                       sortProperty: 'department'},
+                                                                           {headerText: '職務',
+                                       headerStyle: 'min-width: 12em; max-width: 12em; width: 12em',
+                                      headerClassName: 'header-style',
+                                       style: 'min-width: 12em; max-width: 12em; width: 12em',
+                                       className: 'oj-read-only',
+                                       sortProperty: 'job'},
+                                                                           {headerText: 'キャリアバンド',
+                                       headerStyle: 'min-width: 8em; max-width: 8em; width: 8em',
+                                      headerClassName: 'header-style',
+                                       style: 'min-width: 8em; max-width: 8em; width: 8em',
+                                       className: 'oj-read-only',
+                                       sortProperty: 'grade_name'},
+                                   {headerText: '職責区分',
+                                       headerStyle: 'min-width: 6em; max-width: 6em; width: 6em',
+                                      headerClassName: 'header-style',
+                                       style: 'min-width: 6em; max-width: 6em; width: 6em',
+                                       className: 'oj-read-only',
+                                       sortProperty: 'grade_step_name'},
+                                    {headerText: '勤続年数',
+                                       headerStyle: 'min-width: 12em; max-width: 12em; width: 12em',
+                                      headerClassName: 'header-style',
+                                       style: 'min-width: 12em; max-width: 12em; width: 12em',
+                                       className: 'oj-read-only',
+                                       sortProperty: 'years_worked'},
+                                                                   {headerText: '婚姻区分',
+                                       headerStyle: 'min-width: 12em; max-width: 12em; width: 12em',
+                                      headerClassName: 'header-style',
+                                       style: 'min-width: 12em; max-width: 12em; width: 12em',
+                                       className: 'oj-read-only',
+                                       sortProperty: 'marital_status'},
+                                   {headerText: '管轄グループ',
+                                       headerStyle: 'min-width: 10em; max-width: 10em; width: 10em',
+                                      headerClassName: 'header-style',
+                                       style: 'min-width: 10em; max-width: 10em; width: 10em',
+                                       className: 'oj-read-only',
+                                       sortProperty: 'assignment_category'},
+                                   {headerText: '海外経験',
+                                       headerStyle: 'min-width: 6em; max-width: 6em; width: 6em',
+                                      headerClassName: 'header-style',
+                                       style: 'min-width: 6em; max-width: 6em; width: 6em',
+                                       className: 'oj-read-only',
+                                       sortProperty: 'oversea_experience'},
+                                                                      {headerText: '電話',
+                                       headerStyle: 'min-width: 12em; max-width: 12em; width: 12em',
+                                      headerClassName: 'header-style',
+                                       style: 'min-width: 12em; max-width: 12em; width: 12em',
+                                       className: 'oj-read-only',
+                                       sortProperty: 'phone_number'},
+                                   {headerText: 'メール',
+                                       headerStyle: 'min-width: 12em; max-width: 12em; width: 12em',
+                                      headerClassName: 'header-style',
+                                       style: 'min-width: 12em; max-width: 12em; width: 12em',
+                                       className: 'oj-read-only',
+                                       sortProperty: 'email'},
+                                   
+                                     {headerText: '担当製品',
+                                       headerStyle: 'min-width: 12em; max-width: 12em; width: 12em',
+                                      headerClassName: 'header-style',
+                                       style: 'min-width: 12em; max-width: 12em; width: 12em',
+                                       className: 'oj-read-only',
+                                       sortProperty: 'product'},
+                                                                       {headerText: '担当機能',
+                                       headerStyle: 'min-width: 12em; max-width: 12em; width: 12em',
+                                      headerClassName: 'header-style',
+                                       style: 'min-width: 12em; max-width: 12em; width: 12em',
+                                       className: 'oj-read-only',
+                                       sortProperty: 'function'},
+                                     {headerText: '勤務地',
+                                       headerStyle: 'min-width: 12em; max-width: 12em; width: 12em',
+                                      headerClassName: 'header-style',
+                                       style: 'min-width: 12em; max-width: 12em; width: 12em',
+                                       className: 'oj-read-only',
+                                       sortProperty: 'location'},
+                                    {headerText: '詳細',
+                                       headerStyle: 'min-width: 14em; max-width: 14em; width: 14em',
+                                       headerClassName: 'header-style',
+                                       style: 'min-width: 14em; max-width: 14em; width: 14em',
+                                              className: 'oj-read-only',
+                                       sortProperty: 'highhtml'},
+                                      {headerText: 'チェック',
+                                       headerStyle: 'min-width: 10em; max-width: 10em; width: 10em',
+                                       headerClassName: 'header-style',
+                                       style: 'min-width: 10em; max-width: 10em; width: 10em',
+                                       className: 'oj-read-only oj-helper-text-align-auto'}],
+                            rowTemplate: 'rowTemplate'}">
+    </table>
+</div>
+<script type="text/html" id="rowTemplate">
+    <tr>
+        <td>
+            <img class="imageStyle" data-bind="attr: {src: image}"></img>
+        </td>
+        <td style="color: #4F4F4F" data-bind="text: person_number">
+        </td>
+        <td >
+            <a  style="color: #4F4F4F;text-decoration: underline;" target="_blank" data-bind="text: name,attr: {href: tempLink}"></a>
+        </td>
+        <td style="color: #4F4F4F" data-bind="text: age">
+        </td>
+        <td style="color: #4F4F4F" data-bind="text: hired_year">
+        </td>
+        <td style="color: #4F4F4F" data-bind="text: department">
+        </td>
+        <td style="color: #4F4F4F" data-bind="text: job">
+        </td>
+        <td style="color: #4F4F4F" data-bind="text: grade_name">
+        </td>
+        <td style="color: #4F4F4F" data-bind="text: grade_step_name">
+        </td>
+        <td style="color: #4F4F4F" data-bind="text: years_worked">
+        </td>
+        <td style="color: #4F4F4F" data-bind="text: marital_status">
+        </td>
+        <td style="color: #4F4F4F" data-bind="text: assignment_category">
+        </td>
+        <td style="color: #4F4F4F" data-bind="text: oversea_experience">
+        </td>
+        <td style="color: #4F4F4F" data-bind="text: phone_number">
+        </td>
+        <td style="color: #4F4F4F" data-bind="text: email">
+        </td>
+        <td style="color: #4F4F4F" data-bind="text: product">
+        </td>
+        <td style="color: #4F4F4F" data-bind="text: func">
+        </td>
+        <td style="color: #4F4F4F" data-bind="text: location">
+        </td>
+        <td >
+            <span style="color: #4F4F4F" data-bind="html: highhtml"></span>
+        </td> 
+        <td>
+            <div data-bind="ojComponent:{
+                    component:'ojCheckboxset',
+                    value: checkValue, 
+                    rootAttributes:{class:'oj-checkboxset-no-chrome'}
+                }">                            
+                <span class="oj-choice-item">
+                    <input data-bind="attr:{
+                        id: 'checkbox' + $rowContext.status.rowIndex}"
+                           type="checkbox" value="1" aria-label="checkValue"></input>
+                </span>
+            </div>
+        </td>
+    </tr>
+</script>
+
+

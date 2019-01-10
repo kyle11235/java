@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task" xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd"
+		>
+
+	<!-- with this, spring bean context could find annotated bean -->
+	<context:component-scan base-package="com.kyle" />
+
+	<!-- real ConnectionFactory from JMS vendor -->
+	<bean id="targetConnectionFactory" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="tcp://localhost:61616" />
+		<!-- async send -->
+		<property name="useAsyncSend" value="true" />
+		<property name="producerWindowSize" value="10" />
+		
+	</bean>
+
+	<!-- Spring ConnectionFactory -->
+	<bean id="connectionFactory" class="org.springframework.jms.connection.SingleConnectionFactory">
+		<property name="targetConnectionFactory" ref="targetConnectionFactory" />
+	</bean>
+
+	<!-- Spring JMS template, used to send, receive messages -->
+	<bean id="jmsTemplate" class="org.springframework.jms.core.JmsTemplate">
+		<!-- points to spring ConnectionFactory -->
+		<property name="connectionFactory" ref="connectionFactory" />
+		<!-- 1 means non-persist mode, pending messages could be lost -->
+		<!-- 2 means persist mode, pending messages are stored, once consumed would be deleted -->
+		<property name="deliveryMode" value="2" />
+	</bean>
+
+	<!--queue, 1 to 1 -->
+	<bean id="mq1" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg>
+			<value>mq1</value>
+		</constructor-arg>
+	</bean>
+
+	<!-- topic, 1 to many -->
+	<bean id="topic1" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg value="topic1" />
+	</bean>
+
+
+
+</beans>

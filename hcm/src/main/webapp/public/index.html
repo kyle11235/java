@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<!--
+ Copyright (c) 2014, 2017, Oracle and/or its affiliates.
+ The Universal Permissive License (UPL), Version 1.0
+-->
+
+<!-- ************************ IMPORTANT INFORMATION ************************************
+  This web navigation drawer template is provided as an example of how to configure
+  a JET web application with a navigation drawer as a single page application
+  using ojRouter and ojModule.  It contains the Oracle JET framework and a default
+  requireJS configuration file to show how JET can be setup in a common application.
+  This project template can be used in conjunction with demo code from the JET
+  website to test JET component behavior and interactions.
+
+  Any CSS styling with the prefix "demo-" is for demonstration only and is not
+  provided as part of the JET framework.
+
+  Please see the demos under Cookbook/Patterns/App Shell: Web and the CSS documentation
+  under Support/API Docs/Non-Component Styling on the JET website for more information on how to use 
+  the best practice patterns shown in this template.
+
+  Aria Landmark role attributes are added to the different sections of the application
+  for accessibility compliance. If you change the type of content for a specific
+  section from what is defined, you should also change the role value for that
+  section to represent the appropriate content type.
+  ***************************** IMPORTANT INFORMATION ************************************ -->
+<html lang="en-us">
+    <head>
+        <title>HCM</title>
+
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" href="css/images/favicon.ico" type="image/x-icon" />
+        <!-- This is the main css file for the default Alta theme -->
+        <!-- injector:theme -->
+        <link rel="stylesheet" href="css/libs/oj/v3.2.0/alta/oj-alta-min.css" type="text/css"/>
+        <!-- endinjector -->
+
+        <!-- This contains icon fonts used by the starter template -->
+        <link rel="stylesheet" href="css/demo-alta-site-min.css" type="text/css"/>
+
+        <!-- This is where you would add any app specific styling -->
+        <link rel="stylesheet" href="css/override.css" type="text/css"/>
+
+        <link rel="stylesheet" href="css/animate.min.css">
+    </head>
+    <body class="oj-web-applayout-body">
+        <!-- Template for rendering navigation items shared between nav bar and nav list -->
+        <script type="text/html" id="navTemplate">
+        <li><a href="#">
+                <span data-bind="css: $data['iconClass']"></span>
+                <!-- ko text: $data['name'] --> <!--/ko-->
+            </a></li>
+    </script>
+
+    <div id="globalBody" class="oj-offcanvas-outer-wrapper oj-offcanvas-page">
+        <!--
+           ** Oracle JET V3.2.0 web application navigation drawer pattern.
+           ** Please see the demos under Cookbook/Patterns/App Shell: Web
+           ** and the CSS documentation under Support/API Docs/Non-Component Styling
+           ** on the JET website for more information on how to use this pattern. 
+           ** The off-canvas section is used when the browser is resized to a smaller media
+           ** query size for a phone format and hidden until a user clicks on
+           ** the header hamburger icon.
+        -->
+        <div id="navDrawer" class="oj-contrast-marker oj-web-applayout-offcanvas oj-offcanvas-start">
+            <div role="navigation" data-bind="click: toggleDrawer, ojComponent: {component: 'ojNavigationList',
+          navigationLevel: 'application', item: {template: 'navTemplate'}, data: navDataSource,
+          selection: router.stateId, edge: 'start'}">
+            </div>
+        </div>
+        <div id="pageContent" class="oj-web-applayout-page x1el">
+            <!--
+               ** Oracle JET V3.2.0 web application header pattern.
+               ** Please see the demos under Cookbook/Patterns/App Shell: Web
+               ** and the CSS documentation under Support/API Docs/Non-Component Styling
+               ** on the JET website for more information on how to use this pattern.
+            -->
+            <header role="banner" class="oj-web-applayout-header cus_transparent nprint">
+                <div class="oj-web-applayout-max-width oj-flex-bar oj-sm-align-items-center">
+                    <!-- Offcanvas toggle button -->
+                    <div class="oj-flex-bar-start">
+                        <button id="previous"
+                                data-bind=" click: gotoPreviousView, ojComponent: {
+                    component:'ojButton', 
+                    icons: {start:'oj-fwk-icon-caret-start oj-fwk-icon'}, 
+                    label: ''
+                }"></button>
+                    </div>
+                    <div data-bind="css: smScreen() ? 'oj-flex-bar-center-absolute' : 'oj-flex-bar-middle oj-sm-align-items-baseline'">
+                        <span role="img" class="oj-sm-only-hide oj-icon demo-oracle-icon" title="Oracle Logo" alt="Oracle Logo"></span>
+                        <h1 class="oj-web-applayout-header-title" title="Application Name" data-bind="text: appName"></h1>
+                    </div>
+                    
+                    <div class="oj-flex-bar-end">
+                    	<div class="oj-sm-only-hide" style="margin-right: 10px;" data-bind="visible: comp_buttonDisplay()">
+	                        <select id="select" data-bind="ojComponent: {component: 'ojSelect', options: talentPoolOptions,
+	                                   value: selTalentPoolId,
+	                                   rootAttributes: {style:'max-width:20em'}}">
+	                        </select>
+	                    </div>
+                        <div id="talentPoolPopup"
+                             data-bind="ojComponent:{component: 'ojPopup',tail: 'none', modality:'modeless'}">
+                            <div><a id="newtpl" class="btn" href="#">新規作成</a></div>
+                            <div><a id="updatetpl" class="btn" href="#" data-bind="click: updateTalentPool">追加</a></div>
+                            <div><a id="deltpl" class="btn" href="#" data-bind="click: deleteTalentPool">削除</a></div>
+                        </div>
+                        <button class="oj-sm-only-hide" id="showPopup"
+                                data-bind="ojComponent:{component: 'ojButton', label:'人材プール', icons:{end: 'oj-fwk-icon oj-fwk-icon-arrow-s'}, rootAttributes:{'style' : 'margin-right:10px; width:120px'}}, 
+                         click: function(event)
+                         {    
+                           var popup = $('#talentPoolPopup');
+                           if (popup.ojPopup('isOpen'))
+                           {
+                             popup.ojPopup('close');
+                           }
+                           else
+                           {
+                             popup.ojPopup('open', '#showPopup', this.getPosition());
+                           }
+                         }, visible: comp_buttonDisplay()">
+                        </button>
+                        
+                        <button class="oj-sm-only-hide" id= "downloadButton" 
+                                data-bind="visible: comp_buttonDisplay(),click: downloadButtonClick, 
+                       ojComponent: { component: 'ojButton', label: 'ダウンロード', rootAttributes:{'style' : 'margin-right:10px; width:120px'} }">
+                        </button>
+
+                        <button class="oj-sm-only-hide" id= "careerButton" 
+                                data-bind="visible: comp_buttonDisplay(),click: careerButtonClick, 
+                       ojComponent: { component: 'ojButton', label: 'キャリア入力', rootAttributes:{'style' : 'margin-right:10px; width:120px'} }">
+                        </button>
+                        
+                        <button id= "compareButton" 
+                                data-bind="visible: comp_buttonDisplay(),click: compareButtonClick, 
+                       ojComponent: { component: 'ojButton', label: '比較', rootAttributes:{'style' : 'margin-right:10px; width:120px'} }">
+                        </button>
+
+                        <button id= "printButton" 
+                                data-bind="visible: update_buttonDisplay(),click: updateButtonClick, 
+                       ojComponent: { component: 'ojButton', label: '印刷', rootAttributes:{'style' : 'margin-right:10px; width:120px'} }">
+                        </button>
+                    </div>
+                </div>
+
+
+                <div style="display:none" id="dialogWithUserDefinedHeader" title="" data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide', 
+        modality: 'modeless', cancelBehavior: 'none'}">
+                    <div class="oj-dialog-header oj-helper-clearfix" style="border:none; background-color:#fff; text-align: center;">
+                        <span id="dialogTitleId" class="oj-dialog-title">新規人材プール作成</span> 
+                    </div>
+                    <div class="oj-dialog-body">
+                        <div id="form-container">
+                            <div class="oj-form-layout">
+
+                                <div class="oj-form oj-sm-odd-cols-12 oj-md-odd-cols-4 oj-md-labels-inline">
+                                    <div class="oj-flex">
+                                        <div class="oj-flex-item">
+                                            <label for="inputcontrol" class="mylabel">人材プールID</label>
+                                        </div>
+                                        <div class="oj-flex-item">
+                                            <input type="text" class="mytext" id="inputcontrol"
+                                                   data-bind="value: newTalentPoolId">
+                                        </div>
+                                    </div>
+
+                                    <div class="oj-flex">
+                                        <div class="oj-flex-item">
+                                            <label for="inputcontrol2">人材プール名</label>
+                                        </div>
+                                        <div class="oj-flex-item">
+                                            <input type="text" class="mytext" id="inputcontrol2"
+                                                   data-bind="value: newTalentPoolName">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="oj-flex">
+                                <div class="oj-flex-item">
+                                    <button id="okButton" class="btn" data-bind="click: addNewTalentPool">OK</button>
+                                    <button id="cancelButton" class="btn">キャンセル</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+
+				<div style="display:none" id="downloadDia" title="" data-bind="ojComponent:{component: 'ojDialog', initialVisibility: 'hide', 
+        modality: 'modeless', cancelBehavior: 'none'}">
+                    <div class="oj-dialog-header oj-helper-clearfix" style="border:none; background-color:#fff; text-align: center;">
+                        <span id="dialogTitleId" class="oj-dialog-title">処理中</span> 
+                    </div>
+                    <div class="oj-dialog-body">
+                    	<div style="text-align: center;"><img style="width: 20px;" alt="" src="css/images/sp.gif"></div>
+                        <button id="cancelDownloadButton" class="btn">取消</button>
+                    </div>
+                </div>
+
+            </header>
+            <div role="main" class="oj-web-applayout-max-width oj-web-applayout-content" data-bind="ojModule: router.moduleConfig">
+            </div>
+            <footer class="oj-web-applayout-footer cus_transparent" role="contentinfo">
+
+                <div class="oj-web-applayout-footer-item oj-web-applayout-max-width oj-text-secondary-color oj-text-sm">
+                    Copyright © 2014, 2017 Oracle and/or its affiliates All rights reserved.
+                </div>
+            </footer>
+        </div>
+    </div>
+
+    <script type="text/javascript" src="js/libs/require/require.js"></script>
+    <script type="text/javascript" src="js/main.js"></script>
+
+</body>
+
+</html>

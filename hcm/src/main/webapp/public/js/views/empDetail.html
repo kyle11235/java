@@ -1,0 +1,140 @@
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<div id="detailPage">
+    <div class="container">
+        <div class="de_profile"> 
+            <div class="spanIt"><img class="imageStyle" data-bind="attr: {src: de_image}"/></div>
+            <div class="spanIt leftIt">
+                <p><a class="wordsstyle1 de_Name" target="_blank" data-bind="text: de_name,attr: {href: de_link}">Jack</a></p>
+                <p><span class="wordsstyle1">所属 : </span><span class="wordsstyle2 pro_value" data-bind="text: de_department">P2</span></p>
+                <p><span class="wordsstyle1">キャリアバンド : </span><span class="wordsstyle2 pro_value" data-bind="text: de_grade">P2</span></p>
+                <p><span class="wordsstyle1">職責区分 : </span><span class="wordsstyle2 pro_value" data-bind="text: de_step">IV</span></p>
+            </div>
+        </div>
+
+        <div class="titleStyle main1">
+            基本情報
+        </div>
+        <div class="oj-flex de_profileBI">
+            <div class="oj-flex-item oj-lg-4 oj-md-4 oj-sm-12">
+                <div class="titleStyle main1_1">
+                    所属異動歴
+                </div>
+                <div class="t1">
+                    <div class="detailArea style-2 scrollbar" data-bind="html: BI1">
+                    </div>
+                </div>
+            </div>
+            <div class="oj-flex-item oj-lg-4 oj-md-4 oj-sm-12">
+                <div class="titleStyle main1_1">
+                    研修受講歴
+                </div>
+                <div class="t1">
+                    <div class="detailArea style-2 scrollbar" data-bind="html: BI2">
+                    </div>
+                </div>
+            </div>
+            <div class="oj-flex-item oj-lg-4 oj-md-4 oj-sm-12">
+                <div class="titleStyle main1_1">
+                    キャリアプラン
+                </div>
+                <div class="t1">
+                    <div class="comArea">
+                        <p class="subTitle">本人キャリア希望</p>
+                        <p class="" data-bind="text: de_selfCom">123</p>
+                        <p class="subTitle">上司所見</p>
+                        <p class="" data-bind="text: de_bossCom">123</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="titleStyle main2">
+            業務経験情報
+        </div>
+
+
+        <div class="oj-flex de_profileWE">
+            <div class="oj-flex-item oj-lg-4 oj-md-4 oj-sm-12">
+                <div class="titleStyle main2_1">
+                    担当商品経験
+                </div>
+                <div class="t1">
+                    <div class="detailArea style-2 scrollbar" data-bind="html: WE1">
+                        <p>1994 Hired</p>
+                        <p>1994.6.1 A Grp. Z Div. C Sction</p>
+                    </div>
+                </div>
+            </div>
+            <div class="oj-flex-item oj-lg-4 oj-md-4 oj-sm-12">
+                <div class="titleStyle main2_1">
+                    機能経験
+                </div>
+                <div class="t1">
+                    <div class="detailArea style-2 scrollbar" data-bind="html: WE2">
+                        <p>1994 Hired</p>
+                        <p>1994.6.1 A Grp. Z Div. C Sction</p>
+                    </div>
+                </div>
+            </div>
+            <div class="oj-flex-item oj-lg-4 oj-md-4 oj-sm-12">
+                <div class="titleStyle main2_1">
+                    勤務地経験
+                </div>
+                <div class="t1">
+                    <div class="detailArea style-2 scrollbar" data-bind="html: WE3">
+                        <p>1994 Hired</p>
+                        <p>1994.6.1 A Grp. Z Div. C Sction</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="titleStyle main3">
+            人事評価情報
+        </div>
+
+
+        <div class="oj-flex de_profileEH">
+            <div class="oj-flex-item">
+                <div class="titleStyle main3_1">
+                    貢献度評価
+                </div>
+                <div class="t1">
+                    <div class="detailArea style-2 scrollbar" data-bind="html: EH1">
+                        <p>1994 Hired</p>
+                        <p>1994.6.1 A Grp. Z Div. C Sction</p>
+                    </div>
+                </div>
+            </div>
+            <div class="oj-flex-item">
+                <div class="titleStyle main3_1">
+                    能力キャリア開発
+                </div>
+                <div class="t1">
+                    <div class="detailArea style-2 scrollbar" data-bind="html: EH2">
+                        <p>1994 Hired</p>
+                        <p>1994.6.1 A Grp. Z Div. C Sction</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="tabContainer nprint">
+            <div id="peopleset" 
+                 data-bind="ojComponent: {component: 'ojButtonset', checked: person, 
+                                          optionChange: handlePersonChange}"
+                 aria-label="">
+                <!-- ko foreach: peopleRadios -->
+                <label data-bind="attr: {for: id}"></label>                               
+                <input type="radio" name="Radio" 
+                       data-bind="value: id, attr: {id: id}, 
+                                      ojComponent: { component: 'ojButton', label: label }"/>
+                <!-- /ko -->
+            </div>
+        </div>
+    </div>
+</div>

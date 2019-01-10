@@ -1,0 +1,278 @@
+<div id="homeContent" class="oj-web-applayout-max-width centerIt">
+
+    <!--    <div class="oj-flex oj-flex-items-pad small_margin" >
+            <div class="oj-sm-12 oj-md-4  oj-lg-4 oj-flex-item"  data-bind="attr: {style:'text-align: center;'}">    
+                <img role="img" class="poco-logo-icon home_logo_style" src="css/images/Poco_logo.png" />
+                </div>
+            <div class="oj-sm-12 oj-md-8 oj-lg-8 oj-flex-item">    
+                <div class="homeTitle text_left" data-bind="attr: {class:smScreen()? 'homeTitle_sm text_left_sm' : 'homeTitle text_left'}">
+                    S
+                </div></div>
+        </div>-->
+
+    <div id="advSerchLayout" class="oj-flex oj-flex-items-pad" style="margin-top: 30vh;z-index: 999;">
+        <input id="inputSearch" placeholder="Enter something to Search..."
+               data-bind="ojComponent: {
+          component: 'ojInputSearch',
+          optionChange: valueChangeHandler,
+          value: keyword,
+          update:searchBtnAction,
+          options: tags,
+          rootAttributes: {style:'min-width: 60%;width: 60%;margin: 0 auto;background-color: white;;border: 1px solid gray; border-radius: 20px;padding: 2px 12px 2px 12px;'}}"/>
+
+    </div>
+    <!--<p id="homeError" class="centerIt errorText">No result found. Please input a valid search keywords</p>-->
+
+    <div id="advSerchLayout2" class="oj-flex oj-flex-items-pad" style="z-index: 999;">
+        <div class="oj-sm-1 oj-md-2 oj-flex-item"></div>
+        <a style="margin: 20px 0px 0px 40px;text-decoration: underline;" data-bind="click: advSearching">詳細検索</a>
+        <div class="oj-sm-12 oj-md-4 oj-flex-item">
+        </div>
+    </div>
+
+
+    <!--position: absolute;width: calc(100% - 60px);-->
+    <div id="advSerchContent"  class="show_hide" style="">
+
+        <div class="oj-flex oj-flex-items-pad ">
+            <div class="oj-sm-8 oj-md-8 oj-flex-item">
+            </div>
+            <div class="oj-sm-4 oj-md-4 oj-flex-item" style="text-align: right;">
+                <button id= "comButton" style="margin-top: 3px;"
+                        data-bind="click: comSearching, 
+                       ojComponent: { component: 'ojButton', label: 'この条件で検索' }">
+                </button>
+            </div>
+        </div>
+
+        <div class="oj-flex oj-flex-items-pad ">
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom">
+                    <p>従業員番号</p>
+                    <input type="text" data-bind="value: value1"/>
+                </div>
+            </div>
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom">
+                    <p>国籍</p>
+                    <input type="text" data-bind="value: value2"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="oj-flex oj-flex-items-pad ">
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom">
+                    <p>氏名</p>
+                    <input type="text" data-bind="value: value3"/>
+                </div>
+            </div>
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom">
+                    <p>最終学歴</p>
+                    <div id="edLvl" class="oj-train-stretch" style="max-width:700px;margin-left:auto;margin-right:auto;"
+                         data-bind="ojComponent:{
+		component: 'ojTrain', 
+		selectedStep: currentStepValue, 
+		steps: stepArray}"></div>
+                    <br/>
+                </div>
+            </div>
+        </div>
+
+        <div class="oj-flex oj-flex-items-pad ">
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom">
+                    <p>年齢</p>
+                    <div id="flex-container" style="display:flex; align-items:center">
+                        <span id="minValue" data-bind="text: AgevalueArray()[0]" style="margin-right: 4px"> </span>
+                        <input id="slider-id"  data-bind="ojComponent: {
+			component: 'ojSlider', 
+			type: 'range',
+			max:Agemax,
+			min:Agemin, 
+			step:Agestep, 
+			value: AgevalueArray
+			}"/>
+                        <span id="maxValue" data-bind="text: AgevalueArray()[1]" style="margin-left: 4px"></span>
+                    </div>
+                </div>
+            </div>
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom">
+                    <p>入社年次</p>
+                    <div id="flex-container2" style="display:flex; align-items:center">
+                        <span id="minValue2" data-bind="text: hvalueArray()[0]" style="margin-right: 4px"> </span>
+                        <input id="slider-id2" data-bind="ojComponent: {
+			component: 'ojSlider', 
+			type: 'range',
+			max:hmax,
+			min:hmin, 
+			step:hstep, 
+			value: hvalueArray
+			}"/>
+                        <span id="maxValue2" data-bind="text: hvalueArray()[1]" style="margin-left: 4px"></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="oj-flex oj-flex-items-pad ">
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom">
+                    <p>所属</p>
+                    <input type="text" data-bind="value: value7"/>
+                </div>
+            </div>
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom">
+                    <p>職務</p>
+                    <input type="text" data-bind="value: value8"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="oj-flex oj-flex-items-pad ">
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom">
+                    <p>キャリアバンド</p>
+                    <select id="multiselect" data-bind="ojComponent: {component: 'ojSelect',
+                                                      multiple: true,
+                                                      value: value9,
+                                                      rootAttributes: {style:'max-width:100em'}}">
+                        <option value="SP">SP</option>
+                        <option value="P1">P1</option>
+                        <option value="P2">P2</option>
+                        <option value="P3">P3</option>
+                        <option value="AS">AS</option>
+                        <option value="S1">S1</option>
+                        <option value="S2">S2</option>
+                        <option value="SS1">SS1</option>
+                        <option value="SS2">SS2</option>
+                        <option value="SS3">SS3</option>
+                    </select>
+                </div>
+            </div>
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom">
+                    <p>職責区分</p>
+                    <select id="multiselect" data-bind="ojComponent: {component: 'ojSelect',
+                                                      multiple: true,
+                                                      value: value10,
+                                                      rootAttributes: {style:'max-width:100em'}}">
+                        <option value="1">I</option>
+                        <option value="2">II</option>
+                        <option value="3">III</option>
+                        <option value="4">IV</option>
+                        <option value="5">V</option>
+                        <option value="6">VI</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+
+        <div class="oj-flex oj-flex-items-pad ">
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom">
+                    <p>担当商品</p>
+                    <input type="text" data-bind="value: value11"/>
+                </div>
+            </div>
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom">
+                    <p>担当機能</p>
+                    <input type="text" data-bind="value: value12"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="oj-flex oj-flex-items-pad ">
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom" style="    text-align: left;">
+                    <p>海外経験</p>
+                    <div id="checkboxOS" aria-labelledby="agreeId"
+                         data-bind=
+                         "ojComponent: {
+            component: 'ojCheckboxset', 
+            value: isOversea}" >
+                        <!-- oj-choice-item is required for the component to work -->
+                        <span class="oj-choice-item">
+                            <input id="agree" type="checkbox" value="1">
+                            <label for="agree"></label>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom">
+                    <p>勤務地</p>
+                    <input type="text" data-bind="value: value14"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="oj-flex oj-flex-items-pad ">
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom">
+                    <p>スキル</p>
+                    <input type="text" data-bind="value: value15"/>
+                </div>
+            </div>
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom">
+                    <p>レベル</p>
+                    <div id="skillLvl" class="oj-train-stretch" style="max-width:700px;margin-left:auto;margin-right:auto;"
+                         data-bind="ojComponent:{
+		component: 'ojSelect',
+		multiple: true,
+		value: currentSkillValue, 
+		options: skillArray}"></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="oj-flex oj-flex-items-pad ">
+            <div class="oj-sm-12 oj-md-12 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom">
+                    <p>保有資格</p>
+                    <input type="text" data-bind="value: value17"/>
+                </div>
+            </div>
+        </div>
+
+        <div class="oj-flex oj-flex-items-pad ">
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom">
+                    <p>希望職種</p>
+                    <select id="multiselect" data-bind="ojComponent: {component: 'ojSelect',
+                                                      multiple: true,
+                                                      value: value18,
+                                                      rootAttributes: {style:'max-width:100em'}}">
+                        <option value="営業">営業</option>
+                        <option value="企画">企画</option>
+                        <option value="調達">調達</option>
+                        <option value="マネジメント">マネジメント</option>
+                    </select>
+                </div>
+            </div>
+            <div class="oj-sm-12 oj-md-6 oj-flex-item">
+                <div class="oj-flex-item oj-sm-padding-4x-bottom">
+                    <p>希望勤務地</p>
+                    <select id="multiselect" data-bind="ojComponent: {component: 'ojSelect',
+                                                      multiple: true,
+                                                      value: value19,
+                                                      rootAttributes: {style:'max-width:100em'}}">
+                        <option value="ニューヨーク">ニューヨーク</option>
+                        <option value="東京本社">東京本社</option>
+                        <option value="ロンドン">ロンドン</option>
+                        <option value="ミャンマー">ミャンマー</option>
+                        <option value="スイス">スイス</option>
+                        <option value="シンガポール">シンガポール</option>
+
+                    </select>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

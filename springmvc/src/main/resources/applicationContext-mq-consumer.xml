@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:context="http://www.springframework.org/schema/context" xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:task="http://www.springframework.org/schema/task" xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd http://www.springframework.org/schema/task http://www.springframework.org/schema/task/spring-task-3.0.xsd">
+
+	<!-- replace the default one inside ActiveMQConnectionFactory-->
+	<bean id="myRedeliveryPolicy" class="org.apache.activemq.RedeliveryPolicy">
+		<property name="redeliveryDelay" value="1000" />
+		<property name="maximumRedeliveries" value="3" />
+	</bean>
+
+	<!-- the real ConnectionFactory from JMS vendor-->
+	<bean id="targetConnectionFactory-consumer" class="org.apache.activemq.ActiveMQConnectionFactory">
+		<property name="brokerURL" value="tcp://localhost:61616" />
+
+		<!-- use my myRedeliveryPolicy configured in activemq.xml -->
+		<property name="redeliveryPolicy" ref="myRedeliveryPolicy" />
+	</bean>
+
+	<!-- Spring ConnectionFactory -->
+	<bean id="connectionFactory-consumer" class="org.springframework.jms.connection.SingleConnectionFactory">
+		<property name="targetConnectionFactory" ref="targetConnectionFactory-consumer" />
+	</bean>
+
+
+	<!--queue, 1 to 1 -->
+	<bean id="mq1-consumer" class="org.apache.activemq.command.ActiveMQQueue">
+		<constructor-arg>
+			<value>mq1</value>
+		</constructor-arg>
+	</bean>
+
+	<!--topic, 1 to many-->
+	<bean id="topic1-consumer" class="org.apache.activemq.command.ActiveMQTopic">
+		<constructor-arg value="topic1" />
+	</bean>
+
+	<!-- message listener -->
+	<bean id="consumerMessageListener" class="com.kyle.springmvc.mq.listener.ConsumerMessageListener" />
+	
+	<!-- message listener container -->
+	<bean id="jmsContainer" class="org.springframework.jms.listener.DefaultMessageListenerContainer">
+		<property name="connectionFactory" ref="connectionFactory-consumer" />
+		<property name="destination" ref="mq1-consumer" />
+		<property name="messageListener" ref="consumerMessageListener" />
+
+		<!-- turn on transaction to test resend, it only resend when transaction on and exception occurs-->
+		<!-- non-psersist message will be resent but will not go into DLQ by default -->
+		<property name="sessionTransacted" value="true" />
+	</bean>
+
+
+
+
+
+</beans>

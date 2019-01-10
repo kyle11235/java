@@ -1,0 +1,323 @@
+<div id="compView">
+    <div class="comp_title">比較</div>
+
+    <div class="radioClass">
+        <div id="TabSet" 
+             data-bind="ojComponent: {component: 'ojButtonset', checked: radioBtn, 
+                                  optionChange: handleTabChange}"
+             aria-label="Choose only one beverage.">
+            <!-- ko foreach: empRadios -->
+            <label data-bind="attr: {for: id}"></label>                               
+            <input type="radio" name="title" 
+                   data-bind="value: id, attr: {id: id}, 
+                              ojComponent: { component: 'ojButton', label: label }"/>
+            <!-- /ko -->
+        </div>
+
+        <div class="detailLayout BIinfo"> 
+            <div class="detailTitle a1">所属異動歴</div>
+            <div class="detailTitle a2">研修受講歴</div>
+            <div class="detailTitle a3">キャリアプラン</div>
+        </div>
+
+        <div class="detailLayout WEinfo"> 
+            <div class="detailTitle a1">担当商品経験</div>
+            <div class="detailTitle a2">機能経験</div>
+            <div class="detailTitle a3">勤務地経験</div>
+        </div>
+
+        <div class="detailLayout EHinfo"> 
+            <div class="detailTitle a1">貢献度評価</div>
+            <div class="detailTitle a2">能力キャリア開発</div>
+        </div>
+    </div>
+
+    <div class="demo-flex-display oj-flex-items-pad">
+        <div class="oj-flex" id="compare_container" data-bind="html: newHtml">
+<!--            <div class="oj-flex-item">
+                <div class="com_profile"> 
+                    <div class="spanIt"><img class="imageStyle" data-bind="attr: {src: 'css/images/person/default.png'}"/></div>
+                    <div class="spanIt leftIt">
+                        <p><span>XXXXX</span></p>
+                        <p><span>Name:</span><a>Jack,Chen</a></p>
+                        <p><span>Grade:</span><span>P2</span></p>
+                        <p><span>Step:</span><span>IV</span></p>
+                    </div>
+
+                    <div class="rightIt" style="position: relative;height: 35px;">
+                        <form action="#">
+                            <div>
+                                <input type="checkbox" id="test1" />
+                                <label for="test1"></label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="spacer">
+
+                </div>
+
+                <div class="BIinfo com_compDetail"> 
+                    <div class="spanIt leftIt2">
+                        <div class="t1">
+                            <div class="detailArea style-2 scrollbar">
+                                <p>1994 Hired</p>
+                                <p>1994.6.1 A Grp. Z Div. C Sction</p>
+                            </div>
+                        </div>
+                        <div class="t1">
+                            <div class="detailArea style-2 scrollbar">
+                                <p>1994.4.1-1994.6.30 New Hire Training</p>
+                                <p>1994.4.1-1994.6.30 TECH</p>
+                                <p>1994.4.1-1994.6.30 ICS</p>
+                            </div>
+                        </div>
+                        <div class="t1">
+                            <div class="comArea">
+                                <p class="subTitle">Career Preference</p>
+                                <input type="text" value="Good"/>
+                                <p class="subTitle">Manager Comments</p>
+                                <input type="text" value="A good employee"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="WEinfo com_compDetail"> 
+                    <div class="spanIt leftIt2">
+                        <div class="t1">
+                            <div class="detailArea style-2 scrollbar">
+                                <p>1994 Hired2</p>
+                                <p>1994.6.1 A Grp. Z Div. C Sction</p>
+                            </div>
+                        </div>
+                        <div class="t1">
+                            <div class="detailArea style-2 scrollbar">
+                                <p>1994.4.1-1994.6.30 New Hire Training</p>
+                                <p>1994.4.1-1994.6.30 TECH</p>
+                                <p>1994.4.1-1994.6.30 ICS</p>
+                            </div>
+                        </div>
+                        <div class="t1">
+                            <div class="comArea">
+                                <p class="subTitle">Career Preference</p>
+                                <input type="text" value="Good"/>
+                                <p class="subTitle">Manager Comments</p>
+                                <input type="text" value="A good employee"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="EHinfo com_compDetail"> 
+                    <div class="spanIt leftIt2">
+                        <div class="t1">
+                            <div class="detailArea style-2 scrollbar">
+                                <p>1994 Hired3</p>
+                                <p>1994.6.1 A Grp. Z Div. C Sction</p>
+                            </div>
+                        </div>
+                        <div class="t1">
+                            <div class="detailArea style-2 scrollbar">
+                                <p>1994.4.1-1994.6.30 New Hire Training</p>
+                                <p>1994.4.1-1994.6.30 TECH</p>
+                                <p>1994.4.1-1994.6.30 ICS</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="oj-flex-item">
+
+                <div class="com_profile"> 
+                    <div class="spanIt"><img class="imageStyle" data-bind="attr: {src: 'css/images/person/default.png'}"/></div>
+                    <div class="spanIt leftIt">
+                        <p><span>XXXXX</span></p>
+                        <p><span>Name:</span><a>Jack,Chen</a></p>
+                        <p><span>Grade:</span><span>P2</span></p>
+                        <p><span>Step:</span><span>IV</span></p>
+                    </div>
+
+                    <div class="rightIt" style="position: relative;height: 35px;">
+                        <form action="#">
+                            <div>
+                                <input type="checkbox" id="test2" />
+                                <label for="test2"></label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="spacer">
+
+                </div>
+
+                <div class="BIinfo com_compDetail"> 
+                    <div class="spanIt leftIt2">
+                        <div class="t1">
+                            <div class="detailArea style-2 scrollbar">
+                                <p>1994 Hired</p>
+                                <p>1994.6.1 A Grp. Z Div. C Sction</p>
+                            </div>
+                        </div>
+                        <div class="t1">
+                            <div class="detailArea style-2 scrollbar">
+                                <p>1994.4.1-1994.6.30 New Hire Training</p>
+                                <p>1994.4.1-1994.6.30 TECH</p>
+                                <p>1994.4.1-1994.6.30 ICS</p>
+                            </div>
+                        </div>
+                        <div class="t1">
+                            <div class="comArea">
+                                <p class="subTitle">Career Preference</p>
+                                <input type="text" value="Good"/>
+                                <p class="subTitle">Manager Comments</p>
+                                <input type="text" value="A good employee"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="WEinfo com_compDetail"> 
+                    <div class="spanIt leftIt2">
+                        <div class="t1">
+                            <div class="detailArea style-2 scrollbar">
+                                <p>1994 Hired2</p>
+                                <p>1994.6.1 A Grp. Z Div. C Sction</p>
+                            </div>
+                        </div>
+                        <div class="t1">
+                            <div class="detailArea style-2 scrollbar">
+                                <p>1994.4.1-1994.6.30 New Hire Training</p>
+                                <p>1994.4.1-1994.6.30 TECH</p>
+                                <p>1994.4.1-1994.6.30 ICS</p>
+                            </div>
+                        </div>
+                        <div class="t1">
+                            <div class="comArea">
+                                <p class="subTitle">Career Preference</p>
+                                <input type="text" value="Good"/>
+                                <p class="subTitle">Manager Comments</p>
+                                <input type="text" value="A good employee"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="EHinfo com_compDetail"> 
+                    <div class="spanIt leftIt2">
+                        <div class="t1">
+                            <div class="detailArea style-2 scrollbar">
+                                <p>1994 Hired3</p>
+                                <p>1994.6.1 A Grp. Z Div. C Sction</p>
+                            </div>
+                        </div>
+                        <div class="t1">
+                            <div class="detailArea style-2 scrollbar">
+                                <p>1994.4.1-1994.6.30 New Hire Training</p>
+                                <p>1994.4.1-1994.6.30 TECH</p>
+                                <p>1994.4.1-1994.6.30 ICS</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="oj-flex-item">
+
+                <div class="com_profile"> 
+                    <div class="spanIt"><img class="imageStyle" data-bind="attr: {src: 'css/images/person/default.png'}"/></div>
+                    <div class="spanIt leftIt">
+                        <p><span>XXXXX</span></p>
+                        <p><span>Name:</span><a>Jack,Chen</a></p>
+                        <p><span>Grade:</span><span>P2</span></p>
+                        <p><span>Step:</span><span>IV</span></p>
+                    </div>
+
+                    <div class="rightIt" style="position: relative;height: 35px;">
+                        <form action="#">
+                            <div>
+                                <input type="checkbox" id="test3" />
+                                <label for="test3"></label>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+                <div class="spacer">
+
+                </div>
+
+                <div class="BIinfo com_compDetail"> 
+                    <div class="spanIt leftIt2">
+                        <div class="t1">
+                            <div class="detailArea style-2 scrollbar">
+                                <p>1994 Hired</p>
+                                <p>1994.6.1 A Grp. Z Div. C Sction</p>
+                            </div>
+                        </div>
+                        <div class="t1">
+                            <div class="detailArea style-2 scrollbar">
+                                <p>1994.4.1-1994.6.30 New Hire Training</p>
+                                <p>1994.4.1-1994.6.30 TECH</p>
+                                <p>1994.4.1-1994.6.30 ICS</p>
+                            </div>
+                        </div>
+                        <div class="t1">
+                            <div class="comArea">
+                                <p class="subTitle">Career Preference</p>
+                                <input type="text" value="Good"/>
+                                <p class="subTitle">Manager Comments</p>
+                                <input type="text" value="A good employee"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="WEinfo com_compDetail"> 
+                    <div class="spanIt leftIt2">
+                        <div class="t1">
+                            <div class="detailArea style-2 scrollbar">
+                                <p>1994 Hired2</p>
+                                <p>1994.6.1 A Grp. Z Div. C Sction</p>
+                            </div>
+                        </div>
+                        <div class="t1">
+                            <div class="detailArea style-2 scrollbar">
+                                <p>1994.4.1-1994.6.30 New Hire Training</p>
+                                <p>1994.4.1-1994.6.30 TECH</p>
+                                <p>1994.4.1-1994.6.30 ICS</p>
+                            </div>
+                        </div>
+                        <div class="t1">
+                            <div class="comArea">
+                                <p class="subTitle">Career Preference</p>
+                                <input type="text" value="Good"/>
+                                <p class="subTitle">Manager Comments</p>
+                                <input type="text" value="A good employee"/>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="EHinfo com_compDetail"> 
+                    <div class="spanIt leftIt2">
+                        <div class="t1">
+                            <div class="detailArea style-2 scrollbar">
+                                <p>1994 Hired3</p>
+                                <p>1994.6.1 A Grp. Z Div. C Sction</p>
+                            </div>
+                        </div>
+                        <div class="t1">
+                            <div class="detailArea style-2 scrollbar">
+                                <p>1994.4.1-1994.6.30 New Hire Training</p>
+                                <p>1994.4.1-1994.6.30 TECH</p>
+                                <p>1994.4.1-1994.6.30 ICS</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>-->
+        </div>
+    </div>
+</div>
