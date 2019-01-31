@@ -1,13 +1,14 @@
-package com.oracle.hcm.dao;
+package jdbc;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
 import com.alibaba.druid.pool.DruidDataSource;
-import com.oracle.hcm.util.Config;
 
-public class BaseDao {
-	
+import util.Config;
+
+public class Druid implements MyDS {
+
 	// a pool
 	private static DruidDataSource ds = null;
 
@@ -25,12 +26,18 @@ public class BaseDao {
 		}
 	}
 
-	public Connection getOaaConnection() throws SQLException {
+	public Connection getConnection() throws SQLException {
 		if (ds == null) {
 			init();
 		}
 		return ds.getConnection();
 	}
 
-	
+	public static void main(String[] args) throws SQLException {
+
+		// test connection
+		System.out.println(new OracleDS().getConnection());
+
+	}
+
 }

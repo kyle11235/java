@@ -3,11 +3,11 @@
 1.prepare database
 
   - create a database instance
-  - myhub/java/hcm/sql/sql_table.sql/sql_data.sql
+  - github/java/hcm/sql/sql_table.sql/sql_data.sql
 
 2.start solr
   
-  - myhub/java/hcm/solr651.zip
+  - github/java/hcm/solr651.zip
   - update database information in solr/example/example-DIH/solr/db/conf/db-data-config.xml  
   - start solr by `solr651/bin/solr.cmd -e dih` on windows or `solr651/bin/solr -e dih` on linux
   - update index by admin page (no need to do this if there's no data change in database)

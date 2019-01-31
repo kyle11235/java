@@ -2,23 +2,20 @@
 
 package com.example.rest;
 
-import java.util.List;
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.List;
 
 
-public class EmployeeDatabaseDAOImpl implements EmployeeDAO{
+public class EmployeeDatabaseDAOImpl extends OracleDS implements EmployeeDAO{
     
     List<Employee> eList = null;
-	private final Connection conn = DBConnection.getInstance().getConnection();
 
-	    
 	public List<Employee> query(String sqlQueryStr) {
 		List<Employee> resultList = new ArrayList<>();
-		try (PreparedStatement stmt = conn.prepareStatement(sqlQueryStr)) {
+		try (PreparedStatement stmt = super.getConnection().prepareStatement(sqlQueryStr)) {
 			ResultSet rs = stmt.executeQuery();
 			while (rs.next()) {
 				resultList.add(
@@ -91,7 +88,7 @@ public class EmployeeDatabaseDAOImpl implements EmployeeDAO{
 				+ "(ID, FIRSTNAME, LASTNAME, EMAIL, PHONE, BIRTHDATE, TITLE, DEPARTMENT) "
 				+ "VALUES(EMPLOYEE_SEQ.NEXTVAL,?,?,?,?,?,?,?)";
 
-		try (PreparedStatement preparedStatement = this.conn
+		try (PreparedStatement preparedStatement = super.getConnection()
 				.prepareStatement(insertTableSQL)) {
 
 			preparedStatement.setString(1, employee.getFirstName());
@@ -121,7 +118,7 @@ public class EmployeeDatabaseDAOImpl implements EmployeeDAO{
     @Override
     public boolean update(long id, Employee employee){
 		String updateTableSQL = "UPDATE EMPLOYEE SET FIRSTNAME=?, LASTNAME=?, EMAIL=?, PHONE=?, BIRTHDATE=?, TITLE=?, DEPARTMENT=?  WHERE ID=?";
-		try (PreparedStatement preparedStatement = this.conn
+		try (PreparedStatement preparedStatement = super.getConnection()
 				.prepareStatement(updateTableSQL);) {
 			preparedStatement.setString(1, employee.getFirstName());
 			preparedStatement.setString(2, employee.getLastName());
@@ -150,7 +147,7 @@ public class EmployeeDatabaseDAOImpl implements EmployeeDAO{
     @Override
     public boolean delete(long id){
 		String deleteRowSQL = "DELETE FROM EMPLOYEE WHERE ID=?";
-		try (PreparedStatement preparedStatement = this.conn
+		try (PreparedStatement preparedStatement = super.getConnection()
 				.prepareStatement(deleteRowSQL)) {
 			preparedStatement.setLong(1, id);
 			preparedStatement.executeUpdate();

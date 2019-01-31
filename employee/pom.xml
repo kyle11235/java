@@ -68,6 +68,20 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
         </plugins>
+        <resources>
+			
+			<!-- package my resources into springboot jar -->
+			<resource>
+				<directory>src/main/resources</directory>
+				<targetPath>BOOT-INF/classes/</targetPath>
+			</resource>
+			
+			<!-- copy my resource to target/classes to test from main method -->
+			<resource>
+				<directory>src/main/resources</directory>
+				<targetPath>./</targetPath>
+			</resource>
+		</resources>
     </build>
 
     <repositories>

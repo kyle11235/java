@@ -8,7 +8,7 @@
 4.use war
 
 	to test: 
-	mvn spring-boot:run / cd target && java -jar employee.war
+	mvn spring-boot:run / java -jar target/employee.war
 	
 	to package:
 	mvn clean package
