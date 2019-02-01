@@ -20,7 +20,7 @@ public class MysqlDS implements MyDS{
 			ds.setURL(Config.getValue("db.url"));
 			ds.setUser(Config.getValue("db.username"));
 			ds.setPassword(Config.getValue("db.password"));
-			// TODO init/min/max ?
+			// TODO seems no init/min/max - -!
 			ds.getConnection();
 		}
 	}

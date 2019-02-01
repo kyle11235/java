@@ -29,7 +29,7 @@ public class App {
 		}
 
 		System.out.println("threads=" + threads);
-		System.out.println("count=" + count);
+		System.out.println("count for each thread=" + count);
 		System.out.println("datasource=" + ds);
 
 		for (int i = 0; i < threads; i++) {
