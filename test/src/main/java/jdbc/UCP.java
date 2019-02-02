@@ -23,7 +23,7 @@ public class UCP implements MyDS{
 			ds.setMinPoolSize(Integer.parseInt(Config.getValue("db.minSize")));
 			ds.setMaxPoolSize(Integer.parseInt(Config.getValue("db.maxSize")));
 			// warm up
-			ds.getConnection();
+			ds.getConnection().close();
 		}
 	}
 

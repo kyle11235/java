@@ -23,7 +23,7 @@ public class RemoteJNDI {
 //			Context ctx = environment.getInitialContext();
 //			ds = (DataSource) ctx.lookup(Config.getValue("db.jndi.name"));
 			// warm up
-			ds.getConnection();
+			ds.getConnection().close();
 		}
 	}
 

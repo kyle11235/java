@@ -19,7 +19,7 @@ public class JNDI {
 			InitialContext ctx = new InitialContext();
 			ds = (DataSource) ctx.lookup(Config.getValue("db.jndi.name"));
 			// warm up
-			ds.getConnection();
+			ds.getConnection().close();
 		}
 	}
 

@@ -3,24 +3,24 @@ package jdbc;
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import com.alibaba.druid.pool.DruidDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import util.Config;
 
-public class Druid implements MyDS {
+public class DBCP implements MyDS {
 
 	// a pool
-	private static DruidDataSource ds = null;
+	private static BasicDataSource ds = null;
 
 	public static synchronized void init() throws SQLException {
 		if (ds == null) {
-			ds = new DruidDataSource();
+			ds = new BasicDataSource();
 			ds.setUrl(Config.getValue("db.url"));
 			ds.setUsername(Config.getValue("db.username"));
 			ds.setPassword(Config.getValue("db.password"));
 			ds.setInitialSize(Integer.parseInt(Config.getValue("db.initSize")));
-			ds.setMinIdle(Integer.parseInt(Config.getValue("db.minSize")));
-			ds.setMaxActive(Integer.parseInt(Config.getValue("db.maxSize")));
+			ds.setMaxIdle(Integer.parseInt(Config.getValue("db.minSize")));
+			ds.setMaxIdle(Integer.parseInt(Config.getValue("db.maxSize")));
 			// warm up
 			ds.getConnection().close();
 		}

@@ -26,7 +26,7 @@ public class OracleDS implements MyDS{
 			ds.setConnectionProperties(pps);
 		    ds.setImplicitCachingEnabled(true);
 		    // warm up
-			ds.getConnection();
+			ds.getConnection().close();
 			
 		}
 	}

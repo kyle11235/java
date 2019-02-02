@@ -4,12 +4,12 @@ import java.sql.Connection;
 
 import jdbc.MyDS;
 
-public class Worker implements Runnable {
+public class Tester implements Runnable {
 
 	private MyDS ds;
 	private Integer count;
 
-	public Worker(MyDS ds, Integer count) {
+	public Tester(MyDS ds, Integer count) {
 		this.ds = ds;
 		this.count = count;
 	}

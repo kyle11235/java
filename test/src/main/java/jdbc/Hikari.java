@@ -25,7 +25,7 @@ public class Hikari implements MyDS {
 			config.setRegisterMbeans(true);
 			ds = new HikariDataSource(config);
 			// warm up
-			ds.getConnection();
+			ds.getConnection().close();
 		}
 	}
 
