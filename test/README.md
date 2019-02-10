@@ -35,7 +35,7 @@
 	
 - run
 
-	./xxx.sh
+	./scripts/xxx.sh
 	
 ## thread pool
 
