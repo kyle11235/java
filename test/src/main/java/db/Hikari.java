@@ -1,4 +1,4 @@
-package jdbc;
+package db;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -8,11 +8,12 @@ import com.zaxxer.hikari.HikariDataSource;
 
 import util.Config;
 
-public class Hikari implements MyDS {
+public class Hikari implements DS {
 
 	// a pool
 	private static HikariDataSource ds = null;
 
+	// static lock for static ds
 	public static synchronized void init() throws SQLException {
 		if (ds == null) {
 			HikariConfig config = new HikariConfig();
@@ -29,6 +30,7 @@ public class Hikari implements MyDS {
 		}
 	}
 
+	// non-static interface
 	public Connection getConnection() throws SQLException {
 		if (ds == null) {
 			init();

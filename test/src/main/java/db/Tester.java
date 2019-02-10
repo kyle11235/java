@@ -1,15 +1,13 @@
-package test;
+package db;
 
 import java.sql.Connection;
 
-import jdbc.MyDS;
-
 public class Tester implements Runnable {
 
-	private MyDS ds;
+	private DS ds;
 	private Integer count;
 
-	public Tester(MyDS ds, Integer count) {
+	public Tester(DS ds, Integer count) {
 		this.ds = ds;
 		this.count = count;
 	}

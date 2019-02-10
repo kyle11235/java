@@ -1,0 +1,144 @@
+------ start ------
+type=static
+count for each second=10000
+------ end ------
+leaking count=10000
+[GC (Allocation Failure)  18399K->13877K(19456K), 0.0126406 secs]
+[GC (Allocation Failure)  18485K->14053K(19456K), 0.0026911 secs]
+[Full GC (Ergonomics)  14053K->10869K(19456K), 0.1183055 secs]
+[GC (Allocation Failure)  15477K->11189K(19456K), 0.0024517 secs]
+leaking count=10000
+[GC (Allocation Failure)  15797K->11477K(19456K), 0.0018771 secs]
+[GC (Allocation Failure)  16085K->11701K(19456K), 0.0030095 secs]
+leaking count=10000
+[GC (Allocation Failure)  16309K->11901K(19456K), 0.0024602 secs]
+[GC (Allocation Failure)  16509K->12341K(18432K), 0.0029215 secs]
+leaking count=10000
+[GC (Allocation Failure)  15925K->12637K(18944K), 0.0038593 secs]
+[GC (Allocation Failure)  16221K->12861K(18944K), 0.0025852 secs]
+[GC (Allocation Failure)  16445K->13117K(18944K), 0.0033111 secs]
+leaking count=10000
+[GC (Allocation Failure)  16701K->13293K(18944K), 0.0031139 secs]
+[GC (Allocation Failure)  16877K->13565K(18944K), 0.0026580 secs]
+[Full GC (Ergonomics)  13565K->13302K(18944K), 0.1817352 secs]
+leaking count=10000
+[Full GC (Ergonomics)  16886K->13200K(18944K), 0.1538701 secs]
+[Full GC (Ergonomics)  16784K->13368K(18944K), 0.1222388 secs]
+[Full GC (Ergonomics)  16952K->13525K(18944K), 0.1729551 secs]
+leaking count=10000
+[Full GC (Ergonomics)  17109K->13744K(18944K), 0.0942005 secs]
+[Full GC (Ergonomics)  17328K->13520K(18944K), 0.1913669 secs]
+leaking count=10000
+[Full GC (Ergonomics)  17104K->13744K(18944K), 0.1189992 secs]
+[Full GC (Ergonomics)  17328K->13970K(18944K), 0.0561529 secs]
+[Full GC (Ergonomics)  17393K->14186K(18944K), 0.0558472 secs]
+leaking count=10000
+[Full GC (Ergonomics)  17393K->14388K(18944K), 0.0604255 secs]
+[Full GC (Ergonomics)  17393K->14577K(18944K), 0.0587146 secs]
+[Full GC (Ergonomics)  17393K->14755K(18944K), 0.0603226 secs]
+leaking count=10000
+[Full GC (Ergonomics)  17393K->14921K(18944K), 0.0613743 secs]
+[Full GC (Ergonomics)  17393K->15076K(18944K), 0.0595557 secs]
+[Full GC (Ergonomics)  17393K->15222K(18944K), 0.0625493 secs]
+[Full GC (Ergonomics)  17393K->15807K(18944K), 0.0715301 secs]
+leaking count=10000
+[Full GC (Ergonomics)  17393K->15906K(18944K), 0.0634866 secs]
+[Full GC (Ergonomics)  17393K->16000K(18944K), 0.0627115 secs]
+[Full GC (Ergonomics)  17393K->16088K(18944K), 0.0640583 secs]
+[Full GC (Ergonomics)  17393K->16170K(18944K), 0.0638730 secs]
+[Full GC (Ergonomics)  17393K->16247K(18944K), 0.0646416 secs]
+[Full GC (Ergonomics)  17393K->16319K(18944K), 0.0662343 secs]
+[Full GC (Ergonomics)  17393K->16387K(18944K), 0.0674914 secs]
+leaking count=10000
+[Full GC (Ergonomics)  17393K->16450K(18944K), 0.0674882 secs]
+[Full GC (Ergonomics)  17393K->16509K(18944K), 0.0654679 secs]
+[Full GC (Ergonomics)  17393K->16565K(18944K), 0.0651467 secs]
+[Full GC (Ergonomics)  17393K->16618K(18944K), 0.0636076 secs]
+[Full GC (Ergonomics)  17392K->16667K(18944K), 0.0657709 secs]
+[Full GC (Ergonomics)  17392K->16712K(18944K), 0.0657107 secs]
+[Full GC (Ergonomics)  17392K->16755K(18944K), 0.0665036 secs]
+[Full GC (Ergonomics)  17392K->16795K(18944K), 0.0698057 secs]
+[Full GC (Ergonomics)  17392K->16832K(18944K), 0.0700735 secs]
+[Full GC (Ergonomics)  17392K->16867K(18944K), 0.0680513 secs]
+[Full GC (Ergonomics)  17392K->16900K(18944K), 0.0684832 secs]
+[Full GC (Ergonomics)  17392K->16931K(18944K), 0.0666692 secs]
+leaking count=10000
+[Full GC (Ergonomics)  17392K->16960K(18944K), 0.0696872 secs]
+[Full GC (Ergonomics)  17392K->16987K(18944K), 0.0689050 secs]
+[Full GC (Ergonomics)  17392K->17012K(18944K), 0.0675461 secs]
+[Full GC (Ergonomics)  17392K->17036K(18944K), 0.0681904 secs]
+[Full GC (Ergonomics)  17392K->17059K(18944K), 0.0684227 secs]
+[Full GC (Ergonomics)  17392K->17080K(18944K), 0.0684234 secs]
+[Full GC (Ergonomics)  17392K->17099K(18944K), 0.0675983 secs]
+[Full GC (Ergonomics)  17392K->17117K(18944K), 0.0707259 secs]
+[Full GC (Ergonomics)  17392K->17135K(18944K), 0.0700113 secs]
+[Full GC (Ergonomics)  17392K->17151K(18944K), 0.0686484 secs]
+[Full GC (Ergonomics)  17392K->17166K(18944K), 0.0694296 secs]
+[Full GC (Ergonomics)  17392K->17180K(18944K), 0.0694784 secs]
+[Full GC (Ergonomics)  17392K->17193K(18944K), 0.0697832 secs]
+[Full GC (Ergonomics)  17392K->17206K(18944K), 0.0695445 secs]
+[Full GC (Ergonomics)  17392K->17217K(18944K), 0.0693160 secs]
+[Full GC (Ergonomics)  17392K->17228K(18944K), 0.0695591 secs]
+[Full GC (Ergonomics)  17392K->17238K(18944K), 0.0698071 secs]
+[Full GC (Ergonomics)  17392K->17248K(18944K), 0.0724416 secs]
+[Full GC (Ergonomics)  17392K->17257K(18944K), 0.0720305 secs]
+[Full GC (Ergonomics)  17392K->17265K(18944K), 0.0714046 secs]
+[Full GC (Ergonomics)  17392K->17273K(18944K), 0.0691000 secs]
+[Full GC (Ergonomics)  17392K->17281K(18944K), 0.0713094 secs]
+[Full GC (Ergonomics)  17392K->17288K(18944K), 0.0703156 secs]
+[Full GC (Ergonomics)  17392K->17294K(18944K), 0.0712299 secs]
+[Full GC (Ergonomics)  17392K->17300K(18944K), 0.0707569 secs]
+[Full GC (Ergonomics)  17392K->17306K(18944K), 0.0696111 secs]
+[Full GC (Ergonomics)  17392K->17311K(18944K), 0.0705452 secs]
+[Full GC (Ergonomics)  17392K->17316K(18944K), 0.0703476 secs]
+[Full GC (Ergonomics)  17392K->17321K(18944K), 0.0756329 secs]
+[Full GC (Ergonomics)  17392K->17325K(18944K), 0.0705667 secs]
+[Full GC (Ergonomics)  17392K->17329K(18944K), 0.0705033 secs]
+[Full GC (Ergonomics)  17392K->17333K(18944K), 0.0719273 secs]
+[Full GC (Ergonomics)  17392K->17337K(18944K), 0.0707469 secs]
+[Full GC (Ergonomics)  17392K->17340K(18944K), 0.0706664 secs]
+[Full GC (Ergonomics)  17392K->17343K(18944K), 0.0707203 secs]
+[Full GC (Ergonomics)  17392K->17346K(18944K), 0.0730850 secs]
+[Full GC (Ergonomics)  17392K->17349K(18944K), 0.0709803 secs]
+[Full GC (Ergonomics)  17392K->17352K(18944K), 0.0711444 secs]
+[Full GC (Ergonomics)  17392K->17354K(18944K), 0.0751590 secs]
+[Full GC (Ergonomics)  17392K->17357K(18944K), 0.0744342 secs]
+[Full GC (Ergonomics)  17392K->17359K(18944K), 0.0765087 secs]
+[Full GC (Ergonomics)  17392K->17361K(18944K), 0.0710883 secs]
+[Full GC (Ergonomics)  17392K->17363K(18944K), 0.0753088 secs]
+[Full GC (Ergonomics)  17392K->17365K(18944K), 0.0748625 secs]
+[Full GC (Ergonomics)  17392K->17366K(18944K), 0.0736600 secs]
+[Full GC (Ergonomics)  17392K->17368K(18944K), 0.0716593 secs]
+[Full GC (Ergonomics)  17392K->17369K(18944K), 0.0701621 secs]
+[WARNING] 
+java.lang.OutOfMemoryError: GC overhead limit exceeded
+    at java.lang.Long.toUnsignedString0[Full GC (Ergonomics)  17392K->17371K(18944K), 0.1878630 secs]
+ (Long.java:356)
+    at java.lang.Long.toHexString [Full GC (Ergonomics)  17390K->17370K(18944K), 0.0715767 secs]
+(Long.java:272)
+    at java.util.UUID.digits[Full GC (Ergonomics)  17390K->17370K(18944K), 0.0707542 secs]
+ (UUID.java:386)
+    at java.util.UUID.toString[Full GC (Ergonomics)  17390K->17378K(18944K), 0.0716475 secs]
+ (UUID.java:379)
+    at jvm.Static.leak (Static.java:11)
+ [Full GC (Ergonomics)  17390K->17370K(18944K), 0.0714256 secs]
+
+Exception: java.lang.OutOfMemoryError thrown from the UncaughtExceptionHandler in thread "Timer-0"
+[INFO] ------------------------------------------------------------------------
+[INFO] BU[Full GC (Ergonomics)  17390K->17338K(18944K), 0.1942142 secs]
+ILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[Full GC (Ergonomics)  17355K->17338K(18944K), 0.0728908 secs]
+[INFO] Total time: 19.395 s
+[Full GC (Ergonomics)  17355K->17338K(18944K), 0.1329625 secs]
+[INFO] Finished at: [Full GC (Ergonomics)  17355K->17338K(18944K), 0.1316589 secs]
+2019-02-10T10:49:21+08:00
+[INFO] ------------------------------------------------------------------------
+[Full GC (Ergonomics)  17355K->17304K(18944K), 0.1393055 secs]
+[Full GC (Ergonomics)  17322K->17254K(18944K), 0.1404277 secs]
+[Full GC (Ergonomics)  17265K->17256K(18944K), 0.0819431 secs]
+[Full GC (Ergonomics)  17269K->17268K(18944K), 0.0968214 secs]
+[Full GC (Ergonomics)  17269K->17268K(18944K), 0.0754961 secs]
+[Full GC (Ergonomics)  17269K->17268K(18944K), 0.0737078 secs]
+[Full GC (Ergonomics)  17269K->17255K(18944K), 0.0873495 secs]
+---------------------------------------------------

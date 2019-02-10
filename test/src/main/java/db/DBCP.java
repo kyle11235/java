@@ -1,26 +1,26 @@
-package jdbc;
+package db;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import com.mchange.v2.c3p0.ComboPooledDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 
 import util.Config;
 
-public class C3P0 implements MyDS {
+public class DBCP implements DS {
 
 	// a pool
-	private static ComboPooledDataSource ds = null;
+	private static BasicDataSource ds = null;
 
 	public static synchronized void init() throws SQLException {
 		if (ds == null) {
-			ds = new ComboPooledDataSource();
-			ds.setJdbcUrl(Config.getValue("db.url"));
-			ds.setUser(Config.getValue("db.username"));
+			ds = new BasicDataSource();
+			ds.setUrl(Config.getValue("db.url"));
+			ds.setUsername(Config.getValue("db.username"));
 			ds.setPassword(Config.getValue("db.password"));
-			ds.setInitialPoolSize(Integer.parseInt(Config.getValue("db.initSize")));
-			ds.setMinPoolSize(Integer.parseInt(Config.getValue("db.minSize")));
-			ds.setMaxPoolSize(Integer.parseInt(Config.getValue("db.maxSize")));
+			ds.setInitialSize(Integer.parseInt(Config.getValue("db.initSize")));
+			ds.setMaxIdle(Integer.parseInt(Config.getValue("db.minSize")));
+			ds.setMaxIdle(Integer.parseInt(Config.getValue("db.maxSize")));
 			// warm up
 			ds.getConnection().close();
 		}

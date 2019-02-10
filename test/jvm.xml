@@ -83,7 +83,7 @@
 				<version>2.1.2.RELEASE</version>
 				<configuration>
 					<!-- main class -->
-					<mainClass>db.Main</mainClass>
+					<mainClass>jvm.Main</mainClass>
 				</configuration>
 				<executions>
 					<execution>

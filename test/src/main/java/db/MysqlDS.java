@@ -1,5 +1,5 @@
 
-package jdbc;
+package db;
 
 import java.sql.Connection;
 import java.sql.SQLException;
@@ -9,7 +9,7 @@ import com.mysql.cj.jdbc.MysqlDataSource;
 
 import util.Config;
 
-public class MysqlDS implements MyDS{
+public class MysqlDS implements DS{
 
 	// an interface
 	private static MysqlDataSource ds = null;

@@ -1,29 +1,33 @@
-package jdbc;
+
+package db;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import oracle.ucp.jdbc.PoolDataSource;
-import oracle.ucp.jdbc.PoolDataSourceFactory;
+import oracle.jdbc.pool.OracleDataSource;
 import util.Config;
 
-public class UCP implements MyDS{
+public class OracleDS implements DS{
 
 	// a pool
-	private static PoolDataSource ds = null;
+	private static OracleDataSource ds = null;
 
 	public static synchronized void init() throws SQLException {
 		if (ds == null) {
-			ds = PoolDataSourceFactory.getPoolDataSource();
-			ds.setConnectionFactoryClassName(Config.getValue("db.ucp.factoryName"));
+			ds = new OracleDataSource();
 			ds.setURL(Config.getValue("db.url"));
 			ds.setUser(Config.getValue("db.username"));
 			ds.setPassword(Config.getValue("db.password"));
-			ds.setInitialPoolSize(Integer.parseInt(Config.getValue("db.initSize")));
-			ds.setMinPoolSize(Integer.parseInt(Config.getValue("db.minSize")));
-			ds.setMaxPoolSize(Integer.parseInt(Config.getValue("db.maxSize")));
-			// warm up
+
+			java.util.Properties pps = new java.util.Properties();
+			pps.setProperty("InitialLimit", Config.getValue("db.initSize"));    
+			pps.setProperty("MinLimit", Config.getValue("db.minSize"));    
+			pps.setProperty("MaxLimit", Config.getValue("db.maxSize"));    
+			ds.setConnectionProperties(pps);
+		    ds.setImplicitCachingEnabled(true);
+		    // warm up
 			ds.getConnection().close();
+			
 		}
 	}
 
@@ -40,4 +44,5 @@ public class UCP implements MyDS{
 		System.out.println(new OracleDS().getConnection());
 
 	}
+
 }

@@ -1,33 +1,28 @@
-
-package jdbc;
+package db;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-import oracle.jdbc.pool.OracleDataSource;
+import com.mchange.v2.c3p0.ComboPooledDataSource;
+
 import util.Config;
 
-public class OracleDS implements MyDS{
+public class C3P0 implements DS {
 
 	// a pool
-	private static OracleDataSource ds = null;
+	private static ComboPooledDataSource ds = null;
 
 	public static synchronized void init() throws SQLException {
 		if (ds == null) {
-			ds = new OracleDataSource();
-			ds.setURL(Config.getValue("db.url"));
+			ds = new ComboPooledDataSource();
+			ds.setJdbcUrl(Config.getValue("db.url"));
 			ds.setUser(Config.getValue("db.username"));
 			ds.setPassword(Config.getValue("db.password"));
-
-			java.util.Properties pps = new java.util.Properties();
-			pps.setProperty("InitialLimit", Config.getValue("db.initSize"));    
-			pps.setProperty("MinLimit", Config.getValue("db.minSize"));    
-			pps.setProperty("MaxLimit", Config.getValue("db.maxSize"));    
-			ds.setConnectionProperties(pps);
-		    ds.setImplicitCachingEnabled(true);
-		    // warm up
+			ds.setInitialPoolSize(Integer.parseInt(Config.getValue("db.initSize")));
+			ds.setMinPoolSize(Integer.parseInt(Config.getValue("db.minSize")));
+			ds.setMaxPoolSize(Integer.parseInt(Config.getValue("db.maxSize")));
+			// warm up
 			ds.getConnection().close();
-			
 		}
 	}
 

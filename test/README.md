@@ -26,9 +26,17 @@
 	- max connections for pool
 	- max_connections of mysql is 151 by default for better performance with apache web server
 
-## thread pool
-
-
-
 ## jvm
 
+- test
+
+	mvn -f jvm.xml spring-boot:run -Dspring-boot.run.arguments="static,1"  
+	static/statement
+	
+- run
+
+	./xxx.sh
+	
+## thread pool
+
+	
