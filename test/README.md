@@ -35,7 +35,13 @@
 	
 - run
 
-	./scripts/xxx.sh
+	./jvm/xxx.sh
+
+## nio
+
+- test
+
+	mvn -f jvm.xml spring-boot:run	
 	
 ## thread pool
 
