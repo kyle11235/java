@@ -28,10 +28,4 @@ public class TestServerSocketChannel {
 
 	}
 
-	public static void main(String[] args) throws IOException {
-
-		listen(9999);
-
-	}
-
 }

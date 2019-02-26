@@ -47,9 +47,6 @@ public class TestSocketChannel {
 
 		connect();
 
-//		hello 1551095630934hello 1551095630934hello 1551
-//		095630934hello 1551095630934hello 1551095630934h
-
 	}
 
 }

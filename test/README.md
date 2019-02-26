@@ -41,7 +41,8 @@
 
 - test
 
-	mvn -f jvm.xml spring-boot:run	
+	mvn -f nio.xml spring-boot:run
+	curl localhost:9999	
 	
 ## thread pool
 

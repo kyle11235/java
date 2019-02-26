@@ -21,6 +21,7 @@ public class TestSelector {
 	}
 
 	public static void register(SocketChannel channel) throws IOException {
+		System.out.println("register new channel");
 		channel.configureBlocking(false);
 		int interestSet = SelectionKey.OP_READ | SelectionKey.OP_WRITE | SelectionKey.OP_CONNECT;
 		channel.register(selector, interestSet);
@@ -43,16 +44,33 @@ public class TestSelector {
 			while (keyIterator.hasNext()) {
 
 				key = keyIterator.next();
+				SocketChannel channel = (SocketChannel) key.channel();
+				String response = "";
+
+				// the if else in the tutorial sucks
+				// channel for http://localhost:9999 can be read/written at the same time
 
 				if (key.isAcceptable()) {
-					// a connection was accepted by a ServerSocketChannel.
-				} else if (key.isConnectable()) {
-					// a connection was established with a remote server.
-				} else if (key.isReadable()) {
-					// a channel is ready for reading
-				} else if (key.isWritable()) {
-					// a channel is ready for writing
-					write((SocketChannel) key.channel(), "hello " + System.currentTimeMillis());
+				}
+				if (key.isConnectable()) {
+				}
+				if (key.isReadable()) {
+					System.out.println("reading...");
+					
+					response = response + "HTTP/1.1 200 OK\r\n";
+					response = response + "Content-Length: 38\r\n";
+					response = response + "Content-Type: text/html\r\n";
+					response = response + "\r\n";
+					response = response + "<html><body>Hello World!</body></html>";
+				}
+				if (key.isWritable()) {
+					System.out.println("writing...");
+					
+					write(channel, response);
+
+					// for http
+					channel.close();
+					key.cancel();
 				}
 
 				keyIterator.remove();
@@ -66,15 +84,17 @@ public class TestSelector {
 
 	public static void write(SocketChannel channel, String data) throws IOException {
 
-		ByteBuffer buf = ByteBuffer.allocate(48);
+		// fixed size may throw BufferOverflowException for long data
+		ByteBuffer buf = ByteBuffer.allocate(1024);
 		buf.clear();
-		buf.put(data.getBytes());
+		buf.put(data.getBytes("UTF-8"));
 
 		buf.flip();
 
 		while (buf.hasRemaining()) {
 			channel.write(buf);
 		}
+
 	}
 
 }
