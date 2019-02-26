@@ -1,11 +1,13 @@
 package io.netty.example.echo;
 
+import io.netty.channel.ChannelHandler.Sharable;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.channel.ChannelInboundHandlerAdapter;
 
 /**
  * Handles a server-side channel.
  */
+@Sharable
 public class EchoServerHandler extends ChannelInboundHandlerAdapter { // (1)
 
     @Override
