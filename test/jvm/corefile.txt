@@ -1,0 +1,101 @@
+2019-03-04 20:41:36
+Full thread dump Java HotSpot(TM) 64-Bit Server VM (25.172-b11 mixed mode):
+
+"Timer-0" #12 prio=5 os_prio=31 tid=0x00007fd440c24000 nid=0x4003 in Object.wait() [0x000070000845a000]
+   java.lang.Thread.State: TIMED_WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000007bfc12c08> (a java.util.TaskQueue)
+	at java.util.TimerThread.mainLoop(Timer.java:552)
+	- locked <0x00000007bfc12c08> (a java.util.TaskQueue)
+	at java.util.TimerThread.run(Timer.java:505)
+
+"Service Thread" #8 daemon prio=9 os_prio=31 tid=0x00007fd440803800 nid=0x3c03 runnable [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C1 CompilerThread2" #7 daemon prio=9 os_prio=31 tid=0x00007fd44082f000 nid=0x3b03 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread1" #6 daemon prio=9 os_prio=31 tid=0x00007fd44082e000 nid=0x4a03 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"C2 CompilerThread0" #5 daemon prio=9 os_prio=31 tid=0x00007fd44082c800 nid=0x4b03 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Signal Dispatcher" #4 daemon prio=9 os_prio=31 tid=0x00007fd441007800 nid=0x3807 waiting on condition [0x0000000000000000]
+   java.lang.Thread.State: RUNNABLE
+
+"Finalizer" #3 daemon prio=8 os_prio=31 tid=0x00007fd441005800 nid=0x2e03 in Object.wait() [0x0000700007c42000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000007becce4a0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:144)
+	- locked <0x00000007becce4a0> (a java.lang.ref.ReferenceQueue$Lock)
+	at java.lang.ref.ReferenceQueue.remove(ReferenceQueue.java:165)
+	at java.lang.ref.Finalizer$FinalizerThread.run(Finalizer.java:216)
+
+"Reference Handler" #2 daemon prio=10 os_prio=31 tid=0x00007fd44081e800 nid=0x2d03 in Object.wait() [0x0000700007b3f000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000007becde2e8> (a java.lang.ref.Reference$Lock)
+	at java.lang.Object.wait(Object.java:502)
+	at java.lang.ref.Reference.tryHandlePending(Reference.java:191)
+	- locked <0x00000007becde2e8> (a java.lang.ref.Reference$Lock)
+	at java.lang.ref.Reference$ReferenceHandler.run(Reference.java:153)
+
+"main" #1 prio=5 os_prio=31 tid=0x00007fd442006800 nid=0x1903 in Object.wait() [0x000070000752c000]
+   java.lang.Thread.State: WAITING (on object monitor)
+	at java.lang.Object.wait(Native Method)
+	- waiting on <0x00000007bfc12f10> (a java.util.TimerThread)
+	at java.lang.Thread.join(Thread.java:1252)
+	- locked <0x00000007bfc12f10> (a java.util.TimerThread)
+	at java.lang.Thread.join(Thread.java:1326)
+	at org.springframework.boot.maven.RunMojo.join(RunMojo.java:110)
+	at org.springframework.boot.maven.RunMojo.runWithMavenJvm(RunMojo.java:96)
+	at org.springframework.boot.maven.AbstractRunMojo.run(AbstractRunMojo.java:249)
+	at org.springframework.boot.maven.AbstractRunMojo.execute(AbstractRunMojo.java:198)
+	at org.apache.maven.plugin.DefaultBuildPluginManager.executeMojo(DefaultBuildPluginManager.java:137)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:208)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:154)
+	at org.apache.maven.lifecycle.internal.MojoExecutor.execute(MojoExecutor.java:146)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:117)
+	at org.apache.maven.lifecycle.internal.LifecycleModuleBuilder.buildProject(LifecycleModuleBuilder.java:81)
+	at org.apache.maven.lifecycle.internal.builder.singlethreaded.SingleThreadedBuilder.build(SingleThreadedBuilder.java:56)
+	at org.apache.maven.lifecycle.internal.LifecycleStarter.execute(LifecycleStarter.java:128)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:305)
+	at org.apache.maven.DefaultMaven.doExecute(DefaultMaven.java:192)
+	at org.apache.maven.DefaultMaven.execute(DefaultMaven.java:105)
+	at org.apache.maven.cli.MavenCli.execute(MavenCli.java:956)
+	at org.apache.maven.cli.MavenCli.doMain(MavenCli.java:290)
+	at org.apache.maven.cli.MavenCli.main(MavenCli.java:194)
+	at sun.reflect.NativeMethodAccessorImpl.invoke0(Native Method)
+	at sun.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62)
+	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
+	at java.lang.reflect.Method.invoke(Method.java:498)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launchEnhanced(Launcher.java:289)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.launch(Launcher.java:229)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.mainWithExitCode(Launcher.java:415)
+	at org.codehaus.plexus.classworlds.launcher.Launcher.main(Launcher.java:356)
+
+"VM Thread" os_prio=31 tid=0x00007fd440817800 nid=0x5203 runnable 
+
+"GC task thread#0 (ParallelGC)" os_prio=31 tid=0x00007fd44080e000 nid=0x1f07 runnable 
+
+"GC task thread#1 (ParallelGC)" os_prio=31 tid=0x00007fd44080e800 nid=0x2103 runnable 
+
+"GC task thread#2 (ParallelGC)" os_prio=31 tid=0x00007fd44080f800 nid=0x5403 runnable 
+
+"GC task thread#3 (ParallelGC)" os_prio=31 tid=0x00007fd440810000 nid=0x2b03 runnable 
+
+"VM Periodic Task Thread" os_prio=31 tid=0x00007fd440833800 nid=0x3e03 waiting on condition 
+
+JNI global references: 323
+
+Heap
+ PSYoungGen      total 5632K, used 3373K [0x00000007bf980000, 0x00000007c0000000, 0x00000007c0000000)
+  eden space 4608K, 59% used [0x00000007bf980000,0x00000007bfc2bae0,0x00000007bfe00000)
+  from space 1024K, 62% used [0x00000007bff00000,0x00000007bff9f988,0x00000007c0000000)
+  to   space 1024K, 0% used [0x00000007bfe00000,0x00000007bfe00000,0x00000007bff00000)
+ ParOldGen       total 13824K, used 10875K [0x00000007bec00000, 0x00000007bf980000, 0x00000007bf980000)
+  object space 13824K, 78% used [0x00000007bec00000,0x00000007bf69ef70,0x00000007bf980000)
+ Metaspace       used 19148K, capacity 19616K, committed 19712K, reserved 1067008K
+  class space    used 2327K, capacity 2508K, committed 2560K, reserved 1048576K
