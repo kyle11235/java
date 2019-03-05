@@ -120,7 +120,6 @@ public class EmployeeDao extends BaseDao {
 			connection = super.getOaaConnection();
 			PreparedStatement statement = connection.prepareStatement(SELECT_ASSIGNMENT);
 			statement.setInt(1, id);
-			statement.execute();
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
 				Assignment assignment = new Assignment();

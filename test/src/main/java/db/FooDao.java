@@ -18,7 +18,6 @@ public class FooDao extends Hikari {
 		try {
 			connection = super.getConnection();
 			statement = connection.prepareStatement(sql);
-			statement.execute();
 			rs = statement.executeQuery();
 			while (rs.next()) {
 				System.out.println(rs.getString(1) + "," + rs.getString(2));
