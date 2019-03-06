@@ -7,10 +7,12 @@ import java.nio.channels.Selector;
 import java.nio.channels.SocketChannel;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.concurrent.locks.ReentrantLock;
 
-public class TestSelector {
+public class TestSelector extends Thread {
 
 	private static Selector selector = null;
+	private final ReentrantLock selectorLock = new ReentrantLock();
 
 	static {
 		try {
@@ -20,66 +22,79 @@ public class TestSelector {
 		}
 	}
 
-	public static void register(SocketChannel channel) throws IOException {
-		System.out.println("register new channel");
+	public void register(SocketChannel channel) throws IOException {
 		channel.configureBlocking(false);
 		int interestSet = SelectionKey.OP_READ | SelectionKey.OP_WRITE | SelectionKey.OP_CONNECT;
-		channel.register(selector, interestSet);
+
+		// prevent selector from a wake up and immediate another select again
+		selectorLock.lock();
+		try {
+			selector.wakeup();
+			channel.register(selector, interestSet);
+			System.out.println("channel is registered");
+		} finally {
+			selectorLock.unlock();
+		}
 	}
 
-	public static void select() {
+	@Override
+	public void run() {
+		while (true) {
+			SelectionKey key = null;
+			try {
 
-		SelectionKey key = null;
-		try {
-			int readyChannels = selector.selectNow();
+				selectorLock.lock();
+				selectorLock.unlock();
+				// blocking select
+				int readyChannels = selector.select();
 
-			if (readyChannels == 0) {
-				return;
+				if (readyChannels == 0) {
+					continue;
+				}
+
+				Set<SelectionKey> selectedKeys = selector.selectedKeys();
+
+				Iterator<SelectionKey> keyIterator = selectedKeys.iterator();
+
+				while (keyIterator.hasNext()) {
+
+					key = keyIterator.next();
+					SocketChannel channel = (SocketChannel) key.channel();
+					String response = "";
+
+					// the if else in the tutorial sucks
+					// channel for http://localhost:9999 can be read/written at the same time
+
+					if (key.isAcceptable()) {
+					}
+					if (key.isConnectable()) {
+					}
+					if (key.isReadable()) {
+						System.out.println("reading...");
+
+						response = response + "HTTP/1.1 200 OK\r\n";
+						response = response + "Content-Length: 38\r\n";
+						response = response + "Content-Type: text/html\r\n";
+						response = response + "\r\n";
+						response = response + "<html><body>Hello World!</body></html>";
+					}
+					if (key.isWritable()) {
+						System.out.println("writing...");
+
+						write(channel, response);
+
+						// for http
+						channel.close();
+						key.cancel();
+					}
+
+					keyIterator.remove();
+				}
+			} catch (IOException e) {
+				e.printStackTrace();
+				key.cancel();
 			}
-
-			Set<SelectionKey> selectedKeys = selector.selectedKeys();
-
-			Iterator<SelectionKey> keyIterator = selectedKeys.iterator();
-
-			while (keyIterator.hasNext()) {
-
-				key = keyIterator.next();
-				SocketChannel channel = (SocketChannel) key.channel();
-				String response = "";
-
-				// the if else in the tutorial sucks
-				// channel for http://localhost:9999 can be read/written at the same time
-
-				if (key.isAcceptable()) {
-				}
-				if (key.isConnectable()) {
-				}
-				if (key.isReadable()) {
-					System.out.println("reading...");
-					
-					response = response + "HTTP/1.1 200 OK\r\n";
-					response = response + "Content-Length: 38\r\n";
-					response = response + "Content-Type: text/html\r\n";
-					response = response + "\r\n";
-					response = response + "<html><body>Hello World!</body></html>";
-				}
-				if (key.isWritable()) {
-					System.out.println("writing...");
-					
-					write(channel, response);
-
-					// for http
-					channel.close();
-					key.cancel();
-				}
-
-				keyIterator.remove();
-			}
-		} catch (IOException e) {
-			e.printStackTrace();
-			key.cancel();
 		}
-
 	}
 
 	public static void write(SocketChannel channel, String data) throws IOException {

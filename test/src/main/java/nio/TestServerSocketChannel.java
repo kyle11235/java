@@ -13,17 +13,18 @@ public class TestServerSocketChannel {
 
 		ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
 		serverSocketChannel.socket().bind(new InetSocketAddress(port));
-		serverSocketChannel.configureBlocking(false);
+		// block it
+		// serverSocketChannel.configureBlocking(false);
+
+		TestSelector testSelector = new TestSelector();
+		testSelector.start();
 
 		while (true) {
-			// non-blocking
+			// blocking accept for low cpu
 			SocketChannel channel = serverSocketChannel.accept();
-
 			if (channel != null) {
-				TestSelector.register(channel);
+				testSelector.register(channel);
 			}
-			// best to have other thread to select
-			TestSelector.select();
 		}
 
 	}
