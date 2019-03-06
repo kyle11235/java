@@ -1,92 +1,21 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+
+	<parent>
+		<groupId>com.kyle</groupId>
+		<artifactId>test</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+		<relativePath>./pom.xml</relativePath>
+	</parent>
+
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.kyle</groupId>
-	<artifactId>test</artifactId>
+	<artifactId>jvm</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
-	</properties>
-
-	<dependencies>
-	
-		<!-- connection pool -->
-		<!-- hikari -->
-		<dependency>
-			<groupId>com.zaxxer</groupId>
-			<artifactId>HikariCP</artifactId>
-			<version>2.5.1</version>
-		</dependency>
-		<!-- druid -->
-		<dependency>
-			<groupId>com.alibaba</groupId>
-			<artifactId>druid</artifactId>
-			<version>1.0.26</version>
-		</dependency>
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-simple</artifactId>
-			<version>1.6.1</version>
-		</dependency>
-		<!-- mysql -->
-		<dependency>
-			<groupId>mysql</groupId>
-			<artifactId>mysql-connector-java</artifactId>
-			<version>8.0.13</version>
-		</dependency>
-		<!-- c3p0 -->
-		<dependency>
-			<groupId>com.mchange</groupId>
-			<artifactId>c3p0</artifactId>
-			<version>0.9.5.2</version>
-		</dependency>
-		<!-- dbcp -->
-		<dependency>
-			<groupId>org.apache.commons</groupId>
-			<artifactId>commons-dbcp2</artifactId>
-			<version>2.5.0</version>
-		</dependency>
-		<!-- compile with my jars -->
-		<dependency>
-			<groupId>com.sample</groupId>
-			<artifactId>ojdbc8</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/ojdbc8.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>com.sample</groupId>
-			<artifactId>ucp</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/lib/ucp.jar</systemPath>
-		</dependency>
-		
-		<!-- nio -->
-		<dependency>
-			<groupId>io.netty</groupId>
-			<artifactId>netty-all</artifactId>
-			<version>4.1.33.Final</version>
-			<scope>compile</scope>
-		</dependency>
-		
-		
-	</dependencies>
 
 	<build>
 		<plugins>
-			<plugin>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.3.2</version>
-				<configuration>
-					<source>1.8</source>
-					<target>1.8</target>
-					<encoding>UTF-8</encoding>
-				</configuration>
-			</plugin>
 			<plugin>
 				<groupId>org.springframework.boot</groupId>
 				<artifactId>spring-boot-maven-plugin</artifactId>
@@ -105,28 +34,6 @@
 				</executions>
 			</plugin>
 		</plugins>
-		<resources>
-			<!-- package my jars into springboot jar -->
-			<resource>
-				<directory>lib</directory>
-				<targetPath>BOOT-INF/lib/</targetPath>
-				<includes>
-					<include>**/*.jar</include>
-				</includes>
-			</resource>
-
-			<!-- package my resources into springboot jar -->
-			<resource>
-				<directory>src/main/resources</directory>
-				<targetPath>BOOT-INF/classes/</targetPath>
-			</resource>
-
-			<!-- copy my resource to target/classes to test from main method -->
-			<resource>
-				<directory>src/main/resources</directory>
-				<targetPath>./</targetPath>
-			</resource>
-		</resources>
 	</build>
 
 </project>

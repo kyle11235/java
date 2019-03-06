@@ -11,7 +11,7 @@
 
 	<modelVersion>4.0.0</modelVersion>
 	<groupId>com.kyle</groupId>
-	<artifactId>nio</artifactId>
+	<artifactId>db</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 
 	<build>
@@ -22,7 +22,7 @@
 				<version>2.1.2.RELEASE</version>
 				<configuration>
 					<!-- main class -->
-					<mainClass>nio.Main</mainClass>
+					<mainClass>db.Main</mainClass>
 				</configuration>
 				<executions>
 					<execution>

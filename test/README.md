@@ -2,17 +2,18 @@
 
 # springboot, test
 
-## connection pool
+
+## db
 
 - test
 
-	mvn spring-boot:run -Dspring-boot.run.arguments="8,1,hikari"  
+	mvn -f db.xml spring-boot:run -Dspring-boot.run.arguments="8,1,hikari"  
 	hikari/druid//ucp/c3p0/dbcp/mysql/oracle
 	
 - run
 	
-	mvn clean package
-	java -jar target/test-0.0.1-SNAPSHOT.jar 8 1 hikari
+	mvn -f db.xml clean package
+	java -jar target/db-0.0.1-SNAPSHOT.jar 8 1 hikari
 
 - druid
 
@@ -44,6 +45,12 @@
 	mvn -f nio.xml spring-boot:run
 	curl localhost:9999	
 	
+- run
+
+	mvn -f nio.xml clean package
+	java -jar target/nio-0.0.1-SNAPSHOT.jar
+	curl localhost:9999
+		
 ## thread pool
 
 	

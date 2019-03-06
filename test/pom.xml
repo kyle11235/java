@@ -5,15 +5,16 @@
 	<groupId>com.kyle</groupId>
 	<artifactId>test</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
+	<!-- as parent set to pom, then cannot set main class -->
+	<packaging>pom</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 	</properties>
 
+	<!-- include all dependencies for the whole project to compile -->
 	<dependencies>
-	
-		<!-- connection pool -->
 		<!-- hikari -->
 		<dependency>
 			<groupId>com.zaxxer</groupId>
@@ -64,7 +65,7 @@
 			<scope>system</scope>
 			<systemPath>${project.basedir}/lib/ucp.jar</systemPath>
 		</dependency>
-		
+
 		<!-- nio -->
 		<dependency>
 			<groupId>io.netty</groupId>
@@ -72,8 +73,6 @@
 			<version>4.1.33.Final</version>
 			<scope>compile</scope>
 		</dependency>
-		
-		
 	</dependencies>
 
 	<build>
@@ -86,23 +85,6 @@
 					<target>1.8</target>
 					<encoding>UTF-8</encoding>
 				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
-				<version>2.1.2.RELEASE</version>
-				<configuration>
-					<!-- main class -->
-					<mainClass>db.Main</mainClass>
-				</configuration>
-				<executions>
-					<execution>
-						<goals>
-							<!-- mvn clean package, package into an executable jar/war -->
-							<goal>repackage</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 		</plugins>
 		<resources>
