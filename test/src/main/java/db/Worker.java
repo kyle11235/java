@@ -2,12 +2,12 @@ package db;
 
 import java.sql.Connection;
 
-public class Tester implements Runnable {
+public class Worker implements Runnable {
 
 	private DS ds;
 	private Integer count;
 
-	public Tester(DS ds, Integer count) {
+	public Worker(DS ds, Integer count) {
 		this.ds = ds;
 		this.count = count;
 	}

@@ -8,7 +8,7 @@ public class Main {
 
 		System.out.println("------ start ------");
 
-		TestServerSocketChannel.listen(9999);
+		new MyServer().listen(9999);
 
 		System.out.println("------ end ------");
 

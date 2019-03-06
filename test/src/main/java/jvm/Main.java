@@ -23,14 +23,14 @@ public class Main {
 		System.out.println("count for each second=" + count);
 
 		Timer timer = new Timer();
-		Tester tester = null;
+		Worker worker = null;
 		if("static".equals(type)) {
-			tester = new Tester(new Static(), count);
+			worker = new Worker(new Static(), count);
 		}
 		if("statement".equals(type)) {
-			tester = new Tester(new Statement(), count);
+			worker = new Worker(new Statement(), count);
 		}
-		timer.scheduleAtFixedRate(tester, 0, 1000);
+		timer.scheduleAtFixedRate(worker, 0, 1000);
 
 		System.out.println("------ end ------");
 

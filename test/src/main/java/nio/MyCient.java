@@ -5,7 +5,7 @@ import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
-public class TestSocketChannel {
+public class MyCient {
 
 	public static void connect() throws IOException {
 

@@ -26,31 +26,31 @@ public class Main {
 		System.out.println("count for each thread=" + count);
 		System.out.println("datasource=" + ds);
 		
-		Tester tester = null;
+		Worker worker = null;
 		if ("mysql".equals(ds)) {
-			tester = new Tester(new MysqlDS(), count);
+			worker = new Worker(new MysqlDS(), count);
 		}
 		if ("druid".equals(ds)) {
-			tester = new Tester(new Druid(), count);
+			worker = new Worker(new Druid(), count);
 		}
 		if ("hikari".equals(ds)) {
-			tester = new Tester(new Hikari(), count);
+			worker = new Worker(new Hikari(), count);
 		}
 		if ("ucp".equals(ds)) {
-			tester = new Tester(new UCP(), count);
+			worker = new Worker(new UCP(), count);
 		}
 		if ("oracle".equals(ds)) {
-			tester = new Tester(new OracleDS(), count);
+			worker = new Worker(new OracleDS(), count);
 		}
 		if ("c3p0".equals(ds)) {
-			tester = new Tester(new C3P0(), count);
+			worker = new Worker(new C3P0(), count);
 		}
 		if ("dbcp".equals(ds)) {
-			tester = new Tester(new DBCP(), count);
+			worker = new Worker(new DBCP(), count);
 		}
 		
 		for (int i = 0; i < threads; i++) {
-			new Thread(tester).start();
+			new Thread(worker).start();
 		}
 
 		System.out.println("------ end ------");

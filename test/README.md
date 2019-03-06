@@ -51,6 +51,11 @@
 	java -jar target/nio-0.0.1-SNAPSHOT.jar
 	curl localhost:9999
 		
-## thread pool
+## sync
+
+- test
+
+	mvn -f sync.xml spring-boot:run -Dspring-boot.run.arguments="1,4,4"
+	1/2/3/4/5  
 
 	

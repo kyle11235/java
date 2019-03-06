@@ -5,9 +5,9 @@ import java.net.InetSocketAddress;
 import java.nio.channels.ServerSocketChannel;
 import java.nio.channels.SocketChannel;
 
-public class TestServerSocketChannel {
+public class MyServer {
 
-	public static void listen(int port) throws IOException {
+	public void listen(int port) throws IOException {
 
 		System.out.println("listening at " + port);
 
@@ -16,14 +16,14 @@ public class TestServerSocketChannel {
 		// block it
 		// serverSocketChannel.configureBlocking(false);
 
-		TestSelector testSelector = new TestSelector();
-		testSelector.start();
+		Worker worker = new Worker();
+		worker.start();
 
 		while (true) {
 			// blocking accept for low cpu
 			SocketChannel channel = serverSocketChannel.accept();
 			if (channel != null) {
-				testSelector.register(channel);
+				worker.register(channel);
 			}
 		}
 

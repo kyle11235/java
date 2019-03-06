@@ -9,12 +9,12 @@ import java.util.Iterator;
 import java.util.Set;
 import java.util.concurrent.locks.ReentrantLock;
 
-public class TestSelector extends Thread {
+public class Worker extends Thread {
 
-	private static Selector selector = null;
+	private Selector selector = null;
 	private final ReentrantLock selectorLock = new ReentrantLock();
 
-	static {
+	public Worker() {
 		try {
 			selector = Selector.open();
 		} catch (IOException e) {

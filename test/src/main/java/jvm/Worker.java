@@ -2,13 +2,13 @@ package jvm;
 
 import java.util.TimerTask;
 
-public class Tester extends TimerTask {
+public class Worker extends TimerTask {
 	
 	private Leaker leaker;
 	private Integer count;
 
 
-	public Tester(Leaker leaker, Integer count) {
+	public Worker(Leaker leaker, Integer count) {
 		this.leaker = leaker;
 		this.count = count;
 	}
