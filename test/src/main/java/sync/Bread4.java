@@ -5,7 +5,7 @@ public class Bread4 implements Bread {
 	private int count;
 	private boolean readable = false;
 
-	// read 1 by 1, high cpu
+	// competition, read 1 by 1
 	public synchronized void produce() {
 		if (!readable) {
 			System.out.println("produce, count=" + ++count);

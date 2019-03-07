@@ -5,9 +5,9 @@ import java.net.InetSocketAddress;
 import java.nio.ByteBuffer;
 import java.nio.channels.SocketChannel;
 
-public class MyCient {
+public class MyClient {
 
-	public static void connect() throws IOException {
+	public void connect() throws IOException {
 
 		SocketChannel channel = SocketChannel.open();
 		channel.configureBlocking(false);
@@ -22,7 +22,7 @@ public class MyCient {
 		read(channel);
 	}
 
-	public static void read(SocketChannel channel) throws IOException {
+	public void read(SocketChannel channel) throws IOException {
 
 		// create buffer with capacity of 48 bytes
 		ByteBuffer buf = ByteBuffer.allocate(48);
@@ -45,7 +45,7 @@ public class MyCient {
 
 	public static void main(String[] args) throws IOException {
 
-		connect();
+		new MyClient().connect();
 
 	}
 

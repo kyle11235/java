@@ -7,21 +7,28 @@ public class Bread2 implements Bread {
 	private int count;
 	private ReentrantLock lock = new ReentrantLock();
 
-	// entry set of monitor
+	// competition, entry set of monitor
 	public void produce() {
 		lock.lock();
-		if (count < 1) {
-			System.out.println("produce, count=" + ++count);
+		try {
+			if (count == 0) {
+				System.out.println("produce, count=" + ++count);
+			}
+		} finally {
+			lock.unlock();
 		}
-		lock.unlock();
+
 	}
 
 	public void consume() {
 		lock.lock();
-		if (count > 0) {
-			System.out.println("consume, count=" + --count);
+		try {
+			if (count != 0) {
+				System.out.println("consume, count=" + --count);
+			}
+		} finally {
+			lock.unlock();
 		}
-		lock.unlock();
 	}
 
 }

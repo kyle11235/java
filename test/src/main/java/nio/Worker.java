@@ -12,7 +12,7 @@ import java.util.concurrent.locks.ReentrantLock;
 public class Worker extends Thread {
 
 	private Selector selector = null;
-	private final ReentrantLock selectorLock = new ReentrantLock();
+	private final ReentrantLock lock = new ReentrantLock();
 
 	public Worker() {
 		try {
@@ -27,13 +27,13 @@ public class Worker extends Thread {
 		int interestSet = SelectionKey.OP_READ | SelectionKey.OP_WRITE | SelectionKey.OP_CONNECT;
 
 		// prevent selector from a wake up and immediate another select again
-		selectorLock.lock();
+		lock.lock();
 		try {
 			selector.wakeup();
 			channel.register(selector, interestSet);
 			System.out.println("channel is registered");
 		} finally {
-			selectorLock.unlock();
+			lock.unlock();
 		}
 	}
 
@@ -43,8 +43,8 @@ public class Worker extends Thread {
 			SelectionKey key = null;
 			try {
 
-				selectorLock.lock();
-				selectorLock.unlock();
+				lock.lock();
+				lock.unlock();
 				// blocking select
 				int readyChannels = selector.select();
 

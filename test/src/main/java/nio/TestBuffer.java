@@ -7,7 +7,7 @@ import java.nio.channels.FileChannel;
 
 public class TestBuffer {
 
-	public static void write(FileChannel channel, String data) throws IOException {
+	public void write(FileChannel channel, String data) throws IOException {
 
 		// write to end of file
 		channel.position(channel.size());
@@ -24,7 +24,7 @@ public class TestBuffer {
 
 	}
 
-	public static void read(FileChannel channel) throws IOException {
+	public void read(FileChannel channel) throws IOException {
 
 		// read from beginning of file
 		channel.position(0);
@@ -52,8 +52,9 @@ public class TestBuffer {
 		RandomAccessFile file = new RandomAccessFile("nio/nio-data.txt", "rw");
 		FileChannel channel = file.getChannel();
 
-		TestBuffer.write(channel, "hello 中国 " + System.currentTimeMillis());
-		TestBuffer.read(channel);
+		TestBuffer testBuffer = new TestBuffer();
+		testBuffer.write(channel, "hello 中国 " + System.currentTimeMillis());
+		testBuffer.read(channel);
 
 		channel.close();
 		file.close();

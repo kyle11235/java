@@ -20,7 +20,7 @@ public class MyServer {
 		worker.start();
 
 		while (true) {
-			// blocking accept for low cpu
+			// block it for low cpu
 			SocketChannel channel = serverSocketChannel.accept();
 			if (channel != null) {
 				worker.register(channel);
