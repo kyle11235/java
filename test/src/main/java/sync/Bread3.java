@@ -1,13 +1,10 @@
 package sync;
 
-// wait()
+// wait() 
 
-// The current thread must own this object's monitor.
-// The thread releases ownership of this monitor and waits
-// until another thread notifies threads waiting 
-// on this object's monitor to wake up either through 
-// a call to the notify method or the notifyAll method. 
-// The thread then waits until it can re-obtain ownership of the monitor and resumes execution.
+// you always need condition check before wait so synchronized is always required
+// the thread releases ownership of the object's monitor and waits
+// threads have no/don't need knowledge of other threads, they communicate by wait/notify of the shared object 
 
 // notifyAll()
 // The awakened threads will not be able to proceed 
