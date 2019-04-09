@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0;" name="viewport" />
+<title>Solrgo Search</title>
+
+<!-- my base css -->
+<link href="css/base.css" rel="stylesheet">
+
+<!-- Bootstrap -->
+<link href="css/bootstrap.min.css" rel="stylesheet">
+
+<!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+<!--[if lt IE 9]>
+      <script src="https://cdn.bootcss.com/html5shiv/3.7.3/html5shiv.min.js"></script>
+      <script src="https://cdn.bootcss.com/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+	<div class="mt20">&nbsp</div>
+	<div class="mt20">&nbsp</div>
+	<div class="row">
+		<div class="col-sm-6 col-sm-offset-3">
+			<div class="input-group">
+				<input id="q" type="text" class="form-control" placeholder="e.g. oracle" value=""> <span class="input-group-btn">
+					<button id="search" class="btn btn-default" type="button">Go!</button>
+				</span>
+			</div>
+		</div>
+	</div>
+
+	<div class="mt20">&nbsp</div>
+	<div class="container-fluid">
+		<div id="result_info" style="color:grey;">
+		</div>
+		<div class="row">
+			<div class="table-responsive" style="border:none;">
+				<table class="table">
+					<tbody id="list-content">
+
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+
+
+	<!-- templates -->
+	<textarea id="list-template" style="display: none"><!--
+		{#foreach $T.documents as document}
+			<tr>
+              <td><a href="javascript:;" onclick="Solrgo.download(this)" url="{$T.document.url}">{$T.document.name}</a></td>
+            </tr>
+            {#if $T.document.info}
+				<tr>
+	              <td>
+					{$T.document.info}
+	              </td>
+	            </tr>
+			{#/if}
+        {#/for}
+	--></textarea>
+
+
+	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+	<script src="https://cdn.bootcss.com/jquery/1.12.4/jquery.min.js"></script>
+	<!-- Include all compiled plugins (below), or include individual files as needed -->
+	<script src="js/layer_mobile/layer.js"></script>
+	<script src="js/bootstrap.min.js"></script>
+	<script src="js/jquery-jtemplates.js"></script>
+	<script src="js/search.js"></script>
+</body>
+</html>

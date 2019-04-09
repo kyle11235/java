@@ -1,0 +1,172 @@
+/* base */
+	html,body { 
+		margin:0 auto; 	
+		-webkit-tap-highlight-color: transparent;  
+	    -webkit-appearance: none; 
+	}
+	body{
+		font-size:14px;
+	}
+	a,a:link{text-decoration:none;}
+	a:hover {
+		text-decoration:none;
+	}
+	a:focus { outline: none; }
+	input,label,select,textarea,button{outline:0;}
+/* end base */
+
+/* margin */
+	.center{margin:0 auto;}
+	.m5 {
+	  margin: 5px;
+	}
+	.mt5 {
+	  margin-top: 5px;
+	}
+	.mr5 {
+	  margin-right: 5px;
+	}
+	.mb5 {
+	  margin-bottom: 5px;
+	}
+	.ml5 {
+	  margin-left: 5px;
+	}
+	.m10 {
+	  margin: 10px;
+	}
+	.mt10 {
+	  margin-top: 10px;
+	}
+	.mr10 {
+	  margin-right: 10px;
+	}
+	.mb10 {
+	  margin-bottom: 10px;
+	}
+	.ml10 {
+	  margin-left: 10px;
+	}
+	.m20 {
+	  margin: 20px;
+	}
+	.mt20 {
+	  margin-top: 20px;
+	}
+	.mr20 {
+	  margin-right: 20px;
+	}
+	.mb20 {
+	  margin-bottom: 20px;
+	}
+	.ml20 {
+	  margin-left: 20px;
+	}
+/* end margin */
+
+/* padding */
+	.p5 {
+	  padding: 5px;
+	}
+	.pt5 {
+	  padding-top: 5px;
+	}
+	.pr5 {
+	  padding-right: 5px;
+	}
+	.pb5 {
+	  padding-bottom: 5px;
+	}
+	.p10 {
+	  padding: 10px;
+	}
+	.pt10 {
+	  padding-top: 10px;
+	}
+	.pr10 {
+	  padding-right: 10px;
+	}
+	.pb10 {
+	  padding-bottom: 10px;
+	}
+	.pl10 {
+	  padding-left: 10px;
+	}
+/* end padding */
+
+/* float */
+	.fl{float:left;}
+	.fr{float:right;}
+/* end float */
+
+ /* position */
+	.relative {
+	  position: relative!important;
+	}
+	.fixed {
+	  position: fixed!important;
+	}
+	.absolute {
+	  position: absolute!important;
+	}
+ /* end position */
+
+ /* clear */
+	.clearfix:before,.clearfix:after{content:""; display:table;}
+	.clearfix:after{clear:both;}
+	.clearfix{*zoom:1;}
+ /* end clear */
+ 
+ /* text-align */
+	.tal{text-align:left;}
+	.tac{text-align:center;}
+	.tar{text-align:right;}
+ /* end text-align */
+
+/* background-color */
+	.bg-f1{background-color:#F1F1F1;}
+ /* end text-align */
+
+/* font color */
+	.fc-white{color:#fff;}
+	.fc-333{color:#333;}
+	.fc-orange{color:#f59944!important;}
+ /* end font color */
+
+/* font size */
+	.fs14 {
+	  font-size: 14px;
+	}
+	.fs16 {
+	  font-size: 16px;
+	}
+/* end font size */
+
+/* width */
+	.w-4 {
+	  width:40%;
+	}
+	.w-5 {
+	  width:50%;
+	}
+	.w-6 {
+	  width:60%;
+	}
+	.w-7 {
+	  width:70%;
+	}
+	.w-8 {
+	  width:80%;
+	}
+	.w-9 {
+	  width:90%;
+	}
+	.w-10 {
+	  width:100%;
+	}
+/* end font color */
+
+
+
+
+
