@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="sy.dao.CustomerMapper">
+	
+	<resultMap id="resultMap" type="sy.model.Customer">
+		<result column="custId" property="id" jdbcType="VARCHAR" />
+		<result column="lastName" property="lastName" jdbcType="VARCHAR" />
+		<result column="firstName" property="firstName" jdbcType="VARCHAR" />
+	</resultMap>
+	
+	<select id="queryById" resultMap="resultMap" parameterType="java.lang.String">
+		select * from customers where custId = #{id}
+	</select>
+
+	
+</mapper>
