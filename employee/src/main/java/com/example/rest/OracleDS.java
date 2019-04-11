@@ -38,11 +38,11 @@ public class OracleDS {
 		return ds.getConnection();
 	}
 
-	public static void main(String[] args) throws SQLException {
+	// public static void main(String[] args) throws SQLException {
 
-		// test connection
-		System.out.println(new OracleDS().getConnection());
+	// 	// test connection
+	// 	System.out.println(new OracleDS().getConnection());
 
-	}
+	// }
 
 }
