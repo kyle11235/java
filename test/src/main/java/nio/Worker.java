@@ -74,9 +74,16 @@ public class Worker extends Thread {
 
 						response = response + "HTTP/1.1 200 OK\r\n";
 						response = response + "Content-Length: 38\r\n";
-						response = response + "Content-Type: text/html\r\n";
+						response = response + "Content-Type: text/html;charset=utf-8\r\n";
 						response = response + "\r\n";
-						response = response + "<html><body>Hello World!</body></html>";
+						response = response + "<html><body>Hello 中国!</body></html>";
+
+						// http uses ascii encoding
+						// 1. query string -> a sequence of bytes using encoding e.g. UTF-8
+						// 2. byte -> ascii, for each non ascii use %HH format, where HH is the hexadecimal value of the byte
+						// e.g. François -> Fran%C3%A7ois
+						// "ç" is encoded in UTF-8 as two bytes C3 (hex) and A7 (hex)
+						// 3. for body encoding, Content-Type: text/html;charset=utf-8	
 					}
 					if (key.isWritable()) {
 						System.out.println("writing...");
