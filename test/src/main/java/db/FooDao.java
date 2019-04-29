@@ -25,27 +25,19 @@ public class FooDao extends Hikari {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		} finally {
-			if(rs != null) {
-				try {
+			try {
+				if(rs != null) {
 					rs.close();
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
-			}
-			if(statement != null) {
-				try {
+				if (stmt != null) {
 					statement.close();
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
-			}
-			if(connection != null) {
-				try {
-					// close/return to pool
+				if (connection != null) {
 					connection.close();
-				} catch (Exception e) {
-					e.printStackTrace();
 				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new RuntimeException("cannot close resultset/statement/connection", e);
 			}
 		}
 	}
