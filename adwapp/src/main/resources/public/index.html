@@ -1,0 +1,415 @@
+<html>
+
+<head>
+  <script src="jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+    crossorigin="anonymous"></script>
+  <script src="jquery-ui.min.js" integrity="sha256-xNjb53/rY+WmG+4L6tTl9m6PpqknWZvRt0rO1SRnJzw="
+    crossorigin="anonymous"></script>
+  <link href="jquery-ui.css" rel="stylesheet">
+
+  <script>
+    var promptDialog=false;
+    var server="/api/";
+    $(function(){
+      
+        loadcustomers();
+
+        $("#refresh").button().on("click", function(e){
+          loadcustomers();
+      });
+  });
+
+  </script>
+
+  <style>
+    html body {
+      font-family: Arial, Helvetica, sans-serif
+    }
+
+    label,
+    input {
+      display: block;
+      font-size: 80%;
+    }
+
+    input.text {
+      margin-bottom: 12px;
+      width: 95%;
+      padding: .4em;
+    }
+
+    fieldset {
+      padding: 0;
+      border: 0;
+      margin-top: 25px;
+      font-size: 75%;
+    }
+
+    .container {
+      width: 90%;
+      margin: auto;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    .peopleContent {
+      flex-grow: 1;
+    }
+
+    .portrait {
+      width: 120px;
+    }
+
+    .peopleItem {
+      width: 350px;
+      border: 1px solid #777777;
+      background: #FAFAFA;
+      margin: 3px;
+      padding: 2px;
+      display: flex;
+    }
+
+    .peopleTitle {
+      width: 100%;
+      background: #FAFAFA;
+      margin: 3px;
+      padding: 2px;
+      display: flex;
+    }
+
+    #editDialog {
+      display: none;
+    }
+
+    #addDialog {
+      display: none;
+    }
+    #batchDialog {
+      display: none;
+    }
+  </style>
+
+  <script id="peopleTemplate">
+  var peopleTemplate = {};
+  peopleTemplate.render = function(obj){
+  return ""+
+  "    <div class=\"peopleItem\">"+
+  "    <div class=\"portrait\"><img src=\"/nopic.png\"></div>"+
+  "    <div class=\"peopleContent\">"+
+  "      <h4>"+obj.name + "</h4>"+
+  "      "+obj.address+"<br>"+
+  "      <small>"+obj.city+"</small>"+
+  "    </div>"+
+  "  </div>"+
+  "";
+  }
+</script>
+  <script id="detailTemplate">
+  var detailTemplate = {};
+  detailTemplate.render = function(obj){
+  return "" +
+  "  <div class=\"peopleTitle\">"+
+  "    <div class=\"portrait\"><a href=\"#\" class=\"backButton\"><img src=\"/back.png\"></a></div>"+
+  "    <div class=\"portrait\"><img src=\"/nopic.png\"></div>"+
+  "    <div class=\"peopleContent\">"+
+  "      <h3>"+obj.name+"</h3>"+
+  "      "+obj.address+"<br>"+
+  "      <small>"+obj.city+"</small>"+
+  "    </div>"+
+  "  </div>"+
+  
+  "    <div style=\"padding-left:35px;\">"+
+  "    <a href=\"tel:"+obj.phone+"\"><img src=\"/phone.png\"> "+obj.phone+"</a>"+
+  "  </div>"+
+  "  <div style=\"display:none; padding-left:35px;\">"+
+  "    <a href=\"#\" class=\"editButton\"><img src=\"/edit.png\">Edit</a>"+
+  "    <div style=\"padding-left:35px;\">"+
+  "    </div>"+
+  "    <a href=\"#\" class=\"deleteButton\"><img src=\"/delete.png\">Delete</a>"+
+  "  </div>"+
+  "";
+  }
+</script>
+  <script>
+	 function bindDetail(element, customer){
+        element.find(".backButton").on("click", function(){
+          $("#detail").hide(400, "swing", function(){ $("#people").show(400, "swing")});
+        });
+        element.find(".deleteButton").on("click", function(){
+          $('<div></div>').dialog({
+            modal: true,
+            title: "Confirm Delete",
+            open: function() {
+              var markup = 'Are you sure you want to delete '+customer.firstName+' ' + customer.lastName +"?";
+              $(this).html(markup);
+            },
+            buttons: {
+              Ok: function() {
+                $("#detail").html("DELETING...");
+                $( this ).dialog( "close" );
+                $.ajax({
+                  url:server +"customers/"+customer.key,
+                  method:"DELETE"
+                  }).done(function(data){
+                    $("#detail").hide();
+                    loadcustomers();
+                  });
+              },
+              Cancel: function(){
+                $( this ).dialog( "close" );
+              }
+            }
+          });
+        });
+        element.find(".editButton").on("click",function(){
+          $("#editFirstName").val(customer.firstName);
+          $("#editLastName").val(customer.lastName);
+          $("#editEmail").val(customer.email);
+          $("#editPhone").val(customer.phone);
+          $("#editBirthDate").val(customer.birthDate);
+          $("#editTitle").val(customer.title);
+          $("#editDept").val(customer.department);
+
+          $('#editDialog').dialog({
+            modal:true,
+            title: customer.firstName+' ' + customer.lastName,
+            buttons: {
+              "Update": function(){
+                var editcustomer={
+                  firstName:$("#editFirstName").val(),
+                  lastName:$("#editLastName").val(),
+                  email:$("#editEmail").val(),
+                  phone:$("#editPhone").val(),
+                  birthDate:$("#editBirthDate").val(),
+                  title:$("#editTitle").val(),
+                  dept:$("#editDept").val()
+                };
+                $("#detail").html("UPDATING...");
+                $( this ).dialog( "close" );
+                $.ajax({
+                  url:server +"customers/"+customer.id,
+                  method:"PUT",
+                  data:JSON.stringify(editcustomer),
+                  contentType: 'application/json',
+                  }).done(function(data){
+                    $("#detail").hide();
+                    loadcustomers();
+                });
+              },
+              Cancel: function() {
+                $(this).dialog( "close" );
+              }
+            }
+          });
+        });
+      }
+	  
+	  
+    $(function(){
+     
+      $("#batch").button().on("click", function(){
+
+        $("#batchDialog").dialog({
+            modal:true,
+            title: "batch add new customer",
+            buttons:{
+              "Add":function(){
+
+                var batchCount = $("#batchCount").val();
+                var batchInterval = $("#batchInterval").val();
+                var interval = setInterval(function(){ 
+
+                  if(batchCount <= 0){
+                    $("#batch").val("Batch Add New - Completed");
+                     clearInterval(interval);
+                     loadcustomers();
+                     return;
+                  }
+                  $("#batch").val("Batch Add New - Running... " + batchCount);
+                  batchCount--;
+
+                    var addcustomer={
+                      firstName:$("#batchFirstName").val(),
+                      lastName:"Zhang",
+                      email:"batchload@zoo.o",
+                      phone:"07553000000",
+                      birthDate:"1999-12-31",
+                      title:"Developer",
+                      department:"Solution Engineering"
+                    };
+                   
+                    $.ajax({
+                      url:server +"customers",
+                      method:"POST",
+                      data:JSON.stringify(addcustomer),
+                      contentType: 'application/json',
+                      }).done(function(data){
+                        
+                    });
+                  
+                }, batchInterval);
+
+                $("#detail").html("ADDING...");
+                $( this ).dialog( "close" );
+                $("#detail").hide();
+
+              },
+              "Cancel":function(){
+                $(this).dialog( "close" );
+              }
+            }
+        });
+      });
+
+      $("#manage").button().on("click", function(){
+        window.open("manage-db.html", "_blank");
+      });
+
+      $("#searchButton").button().on("click", function(){
+        var searchTerm =$("#searchText").val().trim();
+        if(searchTerm!=""){
+          $("#people").show();
+          $("#people").html("SEARCHING...");
+          $.ajax({
+            url:server+"customers/"+ $("#searchType").val()+"/"+encodeURIComponent(searchTerm),
+            method:"GET"
+          }).done(function(data){
+            $("#people").empty();
+            $("#people").hide();
+            if(data.length==0){
+              $("#people").html("No results found...");
+            }else{
+              data.forEach(function(customer){
+                var item = $(peopleTemplate.render(customer));
+                item.on("click", function(){
+                  var detailItem = $(detailTemplate.render(customer));
+                  $("#detail").empty();
+                  $("#detail").append(detailItem);
+                  bindDetail(detailItem, customer);
+                  $("#people").hide(400, "swing", function(){ $("#detail").show(400, "swing")});
+                });
+                $("#people").append(item);
+              });
+            }
+            $("#people").show(400, "swing");
+          });
+        }else{
+          loadcustomers();
+        }
+      });
+      $("#searchText").on("keyup", function(e){
+        if(e.keyCode == 13){
+          $("#searchButton").trigger("click");
+        }
+      });
+
+    });
+
+   function loadcustomers(){
+	   var start = Date.now();
+
+        $("#people").show();
+        $("#people").html("LOADING...");
+        $.ajax({
+          url:server +"customers?num=" + $("#num").val(),
+          method:"GET"
+        }).done(function(data){
+        	
+     	   var end = Date.now();
+     	   console.log('db -> app -> browser:' + (end - start));
+
+          $("#people").hide();
+          $("#people").empty();
+          $("#count").text(data.length);
+          data.forEach(function(customer){
+            var item = $(peopleTemplate.render(customer));
+            item.on("click", function(){
+              var detailItem = $(detailTemplate.render(customer));
+              $("#detail").empty();
+              $("#detail").append(detailItem);
+              bindDetail(detailItem, customer);
+              $("#people").hide(400, "swing", function(){ $("#detail").show(400, "swing")});
+            });
+            $("#people").append(item);
+          })
+          $("#people").show(400, "swing");
+        });
+      }
+  </script>
+</head>
+
+<body>
+  <h1>Cloud customer App</h1>
+  <div >number of rows: <input type="text" id="num" value="10" style="width:100px;display:inline-block" class="text ui-widget-content ui-corner-all">
+    <input style="margin-left:20px; width:100px;display:inline-block" id="refresh" value="Refresh" type="button">
+    <input sytle="margin-left:20px; " id="manage" value="Manage Autonomous Database" type="button"></div>
+  <div style="text-align: right;"></div>
+
+
+  <div id="people" class="container">
+    LOADING...
+  </div>
+  <div id="detail">
+  </div>
+
+  <div id="editDialog">
+    <p class="validateTips">All form fields are required.</p>
+    <form>
+      <fieldset>
+
+        <label for="editFirstName">First Name</label><input type="text" id="editFirstName" value="" class="text ui-widget-content ui-corner-all">
+        <label for="editLastName">Last Name</label><input type="text" id="editLastName" value="" class="text ui-widget-content ui-corner-all">
+        <label for="editEmail">Email</label><input type="text" id="editEmail" value="" class="text ui-widget-content ui-corner-all">
+        <label for="editPhone">Phone</label><input type="text" id="editPhone" value="" class="text ui-widget-content ui-corner-all">
+        <label for="editBirthDate">Birthdate</label><input type="text" id="editBirthDate" value="" class="text ui-widget-content ui-corner-all">
+        <label for="editTitle">Title</label><input type="text" id="editTitle" value="" class="text ui-widget-content ui-corner-all">
+        <label for="editDept">Department</label><input type="text" id="editDept" value="" class="text ui-widget-content ui-corner-all">
+
+        <!-- Allow form submission with keyboard without duplicating the dialog button -->
+        <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+      </fieldset>
+    </form>
+  </div>
+
+  <div id="addDialog">
+    <p class="validateTips">All form fields are required.</p>
+    <form>
+      <fieldset>
+
+        <label for="addFirstName">First Name</label><input type="text" id="addFirstName" value="" class="text ui-widget-content ui-corner-all">
+        <label for="addLastName">Last Name</label><input type="text" id="addLastName" value="" class="text ui-widget-content ui-corner-all">
+        <label for="addEmail">Email</label><input type="text" id="addEmail" value="" class="text ui-widget-content ui-corner-all">
+        <label for="addPhone">Phone</label><input type="text" id="addPhone" value="" class="text ui-widget-content ui-corner-all">
+        <label for="addBirthDate">Birthdate</label><input type="text" id="addBirthDate" value="" class="text ui-widget-content ui-corner-all">
+        <label for="addTitle">Title</label><input type="text" id="addTitle" value="" class="text ui-widget-content ui-corner-all">
+        <label for="addDept">Department</label><input type="text" id="addDept" value="" class="text ui-widget-content ui-corner-all">
+
+        <!-- Allow form submission with keyboard without duplicating the dialog button -->
+        <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+      </fieldset>
+    </form>
+  </div>
+
+  <div id="batchDialog">
+    <p class="validateTips">All form fields are required.</p>
+    <form>
+      <fieldset>
+
+        <label for="batchFirstName">First Name</label><input type="text" id="batchFirstName" value="batch-01" class="text ui-widget-content ui-corner-all">
+        <label for="batchCount">Count</label><input type="text" id="batchCount" value="1" class="text ui-widget-content ui-corner-all">
+        <label for="batchInterval">Interval (millseconds)</label><input type="text" id="batchInterval" value="1000" class="text ui-widget-content ui-corner-all">
+
+        <!-- Allow form submission with keyboard without duplicating the dialog button -->
+        <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+      </fieldset>
+    </form>
+  </div>
+
+  <!-- div id="connectDialog" title="Please select your service.">
+    <input id="servUrl" type="text" size="60" value="http://10.0.3.2:9073/customer" /><br/>
+    <button id="connect">Connect</button>
+  </div -->
+
+</body>
+
+</html>
