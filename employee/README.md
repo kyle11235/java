@@ -1,27 +1,34 @@
 
 # springboot app, mock database or oracle database
 
-1.install oracle jdbc and init database
+1. install jdbc
 
-2.use mock dao or database dao in EmployeeController.java
-	
-4.use war
+    cd lib && ./install.sh
 
-	to test: 
-	mvn spring-boot:run / java -jar target/employee.war
-	
-	to package:
-	mvn clean package
+2. mock dao/database dao
 
-3.use jar
+    EmployeeController.java
 
-	uncomment App.java, comment out AppWar.java
-	
-	to test: 
-	mvn -f jar.xml spring-boot:run / mvn -f jar.xml clean test exec:java
-	
-	to package:
-	mvn -f jar.xml clean package
-	
-5.deploy to tomcat/weblogic 12.2.1.2/JCS/ACCS/OCCS
+3. config
 
+    place config into ~/.config or export ENV_CONFIG_HOME=/foo/bar/config
+
+4. use jar
+
+    to test:
+    mvn spring-boot:run / java -jar target/employee.jar
+
+    to package:
+    mvn clean package
+
+5. use war
+
+    uncomment AppWar.java, comment out App.java
+
+    to test:
+    mvn -f war.xml spring-boot:run / mvn -f war.xml clean test exec:java
+
+    to package:
+    mvn -f war.xml clean package
+
+6. deploy to tomcat/weblogic 12.2.1.2/JCS/ACCS/OCCS
