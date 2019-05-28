@@ -1,5 +1,5 @@
 
-# connect to/manage adw using java
+# a test app
 
 - config
 
@@ -23,6 +23,7 @@
 
 - start
 
+        export ENV_CONFIG_HOME=/home/opc/config
         nohup java -jar app.war > out.log 2>&1 &
 
 - build docker image

@@ -15,8 +15,15 @@ public class EmployeeDatabaseDAOImpl extends OracleDS implements EmployeeDAO{
 
 	public List<Employee> query(String sqlQueryStr) {
 		List<Employee> resultList = new ArrayList<>();
+		
+		Long start = System.currentTimeMillis();
+
 		try (PreparedStatement stmt = super.getConnection().prepareStatement(sqlQueryStr)) {
 			ResultSet rs = stmt.executeQuery();
+
+			Long end = System.currentTimeMillis();
+			System.out.println("db -> app:" + (end - start));
+			
 			while (rs.next()) {
 				resultList.add(
                     new Employee(rs.getLong("ID"), rs.getString("FIRSTNAME"), 
