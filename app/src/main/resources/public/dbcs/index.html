@@ -183,13 +183,14 @@
             buttons: {
               "Update": function(){
                 var editEmployee={
+                  id:employee.id,
                   firstName:$("#editFirstName").val(),
                   lastName:$("#editLastName").val(),
                   email:$("#editEmail").val(),
                   phone:$("#editPhone").val(),
                   birthDate:$("#editBirthDate").val(),
                   title:$("#editTitle").val(),
-                  dept:$("#editDept").val()
+                  department:$("#editDept").val()
                 };
                 $("#detail").html("UPDATING...");
                 $( this ).dialog( "close" );
@@ -237,7 +238,7 @@
                   phone:$("#addPhone").val(),
                   birthDate:$("#addBirthDate").val(),
                   title:$("#addTitle").val(),
-                  dept:$("#addDept").val()
+                  department:$("#addDept").val()
                 };
                 $("#detail").html("ADDING...");
                 $( this ).dialog( "close" );
@@ -331,14 +332,14 @@
     <table width="100%">
       <tr>
         <td>
-          <!--
-          <input style="display:inline-block;" type="text" size="20" id="searchText"><select id="searchType">
-            <option value="lastname">By last name</option>
-            <option value="department">By department</option>
-            <option value="title">By title</option>
-          </select>
-          -->
-          <input id="searchButton" value="search" type="button">
+          <div style="display: none;">
+            <input style="display:inline-block;" type="text" size="20" id="searchText"><select id="searchType">
+              <option value="lastname">By last name</option>
+              <option value="department">By department</option>
+              <option value="title">By title</option>
+            </select>
+          </div>
+          <input id="searchButton" value="refresh" type="button">
         </td>
         <td align="right" width="10%">
           <input id="addButton" value="Add New" type="button">

@@ -2,9 +2,7 @@
 
 package com.example.rest.dbcs;
 
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,10 +14,17 @@ public class EmployeeDatabaseDAOImpl extends OracleDS implements EmployeeDAO{
 	public List<Employee> query(String sqlQueryStr) {
 		List<Employee> resultList = new ArrayList<>();
 		
+		Connection connection = null;
+		PreparedStatement stmt = null;
+		ResultSet rs =null;
 		Long start = System.currentTimeMillis();
 
-		try (PreparedStatement stmt = super.getConnection().prepareStatement(sqlQueryStr)) {
-			ResultSet rs = stmt.executeQuery();
+		try {
+
+			connection = super.getConnection();
+			stmt  = connection.prepareStatement(sqlQueryStr);
+
+			rs = stmt.executeQuery();
 
 			Long end = System.currentTimeMillis();
 			System.out.println("db -> app:" + (end - start));
@@ -37,6 +42,21 @@ public class EmployeeDatabaseDAOImpl extends OracleDS implements EmployeeDAO{
 		} catch (Exception e) {
             System.out.println("Query Error: " + e.getMessage());
             e.printStackTrace();
+		} finally{
+			try {
+				if(rs != null) {
+					rs.close();
+				}
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new RuntimeException("cannot close resultset/statement/connection", e);
+			}
 		}
 		return resultList;
 	}
@@ -95,18 +115,28 @@ public class EmployeeDatabaseDAOImpl extends OracleDS implements EmployeeDAO{
 				+ "(ID, FIRSTNAME, LASTNAME, EMAIL, PHONE, BIRTHDATE, TITLE, DEPARTMENT) "
 				+ "VALUES(EMPLOYEE_SEQ.NEXTVAL,?,?,?,?,?,?,?)";
 
-		try (PreparedStatement preparedStatement = super.getConnection()
-				.prepareStatement(insertTableSQL)) {
+		Connection connection = null;
+		PreparedStatement stmt = null;
+		Long start = System.currentTimeMillis();
 
-			preparedStatement.setString(1, employee.getFirstName());
-			preparedStatement.setString(2, employee.getLastName());
-			preparedStatement.setString(3, employee.getEmail());
-			preparedStatement.setString(4, employee.getPhone());
-			preparedStatement.setString(5, employee.getBirthDate());
-			preparedStatement.setString(6, employee.getTitle());
-			preparedStatement.setString(7, employee.getDepartment());
+		try {
 
-			preparedStatement.executeUpdate();
+			connection = super.getConnection();
+			stmt  = connection.prepareStatement(insertTableSQL);
+
+			stmt.setString(1, employee.getFirstName());
+			stmt.setString(2, employee.getLastName());
+			stmt.setString(3, employee.getEmail());
+			stmt.setString(4, employee.getPhone());
+			stmt.setString(5, employee.getBirthDate());
+			stmt.setString(6, employee.getTitle());
+			stmt.setString(7, employee.getDepartment());
+
+			stmt.execute();
+
+			Long end = System.currentTimeMillis();
+			System.out.println("db -> app:" + (end - start));
+			
             return true;
 		} catch (SQLException e) {
             System.out.println("SQL Add Error: " + e.getMessage());
@@ -117,6 +147,18 @@ public class EmployeeDatabaseDAOImpl extends OracleDS implements EmployeeDAO{
             System.out.println("Add Error: " + e.getMessage());
             e.printStackTrace();
             return false;
+		} finally{
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new RuntimeException("cannot close resultset/statement/connection", e);
+			}
 		}
         
     }
@@ -125,18 +167,28 @@ public class EmployeeDatabaseDAOImpl extends OracleDS implements EmployeeDAO{
     @Override
     public boolean update(long id, Employee employee){
 		String updateTableSQL = "UPDATE EMPLOYEE SET FIRSTNAME=?, LASTNAME=?, EMAIL=?, PHONE=?, BIRTHDATE=?, TITLE=?, DEPARTMENT=?  WHERE ID=?";
-		try (PreparedStatement preparedStatement = super.getConnection()
-				.prepareStatement(updateTableSQL);) {
-			preparedStatement.setString(1, employee.getFirstName());
-			preparedStatement.setString(2, employee.getLastName());
-			preparedStatement.setString(3, employee.getEmail());
-			preparedStatement.setString(4, employee.getPhone());
-			preparedStatement.setString(5, employee.getBirthDate());
-			preparedStatement.setString(6, employee.getTitle());
-			preparedStatement.setString(7, employee.getDepartment());
-            preparedStatement.setLong(8, employee.getId());
 
-			preparedStatement.executeUpdate();
+		Connection connection = null;
+		PreparedStatement stmt = null;
+		Long start = System.currentTimeMillis();
+
+
+		try {
+
+			connection = super.getConnection();
+			stmt  = connection.prepareStatement(updateTableSQL);
+
+			stmt.setString(1, employee.getFirstName());
+			stmt.setString(2, employee.getLastName());
+			stmt.setString(3, employee.getEmail());
+			stmt.setString(4, employee.getPhone());
+			stmt.setString(5, employee.getBirthDate());
+			stmt.setString(6, employee.getTitle());
+			stmt.setString(7, employee.getDepartment());
+            stmt.setLong(8, employee.getId());
+
+			stmt.execute();
+
             return true;
 		} catch (SQLException e) {
             System.out.println("SQL Update Error: "	+ e.getMessage());
@@ -146,6 +198,18 @@ public class EmployeeDatabaseDAOImpl extends OracleDS implements EmployeeDAO{
             System.out.println("Update Error: "	+ e.getMessage());
             e.printStackTrace();
             return false;            
+		} finally{
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new RuntimeException("cannot close resultset/statement/connection", e);
+			}
 		}
     
     }
@@ -154,10 +218,19 @@ public class EmployeeDatabaseDAOImpl extends OracleDS implements EmployeeDAO{
     @Override
     public boolean delete(long id){
 		String deleteRowSQL = "DELETE FROM EMPLOYEE WHERE ID=?";
-		try (PreparedStatement preparedStatement = super.getConnection()
-				.prepareStatement(deleteRowSQL)) {
-			preparedStatement.setLong(1, id);
-			preparedStatement.executeUpdate();
+
+		Connection connection = null;
+		PreparedStatement stmt = null;
+		Long start = System.currentTimeMillis();
+
+
+		try {
+
+			connection = super.getConnection();
+			stmt  = connection.prepareStatement(deleteRowSQL);
+
+			stmt.setLong(1, id);
+			stmt.execute();
             return true;
 
 		} catch (SQLException e) {
@@ -168,6 +241,18 @@ public class EmployeeDatabaseDAOImpl extends OracleDS implements EmployeeDAO{
 			System.out.println("Delete Error: " + e.getMessage());
             e.printStackTrace();
             return false;
+		} finally{
+			try {
+				if (stmt != null) {
+					stmt.close();
+				}
+				if (connection != null) {
+					connection.close();
+				}
+			} catch (SQLException e) {
+				e.printStackTrace();
+				throw new RuntimeException("cannot close resultset/statement/connection", e);
+			}
 		}
 	}
 }
