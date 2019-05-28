@@ -194,7 +194,7 @@
                 $("#detail").html("UPDATING...");
                 $( this ).dialog( "close" );
                 $.ajax({
-                  url:server +"/api/employees/"+employee.id,
+                  url:server +"api/employees/"+employee.id,
                   method:"PUT",
                   data:JSON.stringify(editEmployee),
                   contentType: 'application/json',
