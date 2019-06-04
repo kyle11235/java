@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
+import java.util.List;
 import com.example.util.Config;
 
 @CrossOrigin
@@ -16,9 +16,11 @@ import com.example.util.Config;
 @RequestMapping("/api/db")
 public class OCIController {
 
+	private OCIAPI api = new OCIAPI();
+
 	@RequestMapping(method = RequestMethod.GET)
-	public String list() {
-		return OCIAPI.listAutonomousDatabases(Config.getValue("oci.compartmentID"));
+	public List<DB> list() {
+		return api.listAutonomousDatabases(Config.getValue("oci.compartmentID"));
 	}
 
     @CrossOrigin(origins = "http://localhost:5000")
@@ -27,7 +29,7 @@ public class OCIController {
 		try {
 			System.out.println("dbID=" + dbID);
 			System.out.println("cpuCount=" + cpuCount);
-			return OCIAPI.updateAutonomousDatabase(dbID, cpuCount);
+			return api.updateAutonomousDatabase(dbID, cpuCount);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return e.getMessage();
@@ -39,7 +41,7 @@ public class OCIController {
 	public String start(@PathVariable String dbID) {
 		try {
 			System.out.println("dbID=" + dbID);
-			return OCIAPI.startAutonomousDatabase(dbID);
+			return api.startAutonomousDatabase(dbID);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return e.getMessage();
@@ -51,7 +53,7 @@ public class OCIController {
 	public String stop(@PathVariable String dbID) {
 		try {
 			System.out.println("dbID=" + dbID);
-			return OCIAPI.stopAutonomousDatabase(dbID);
+			return api.stopAutonomousDatabase(dbID);
 		} catch (Exception e) {
 			e.printStackTrace();
 			return e.getMessage();

@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 public class EmployeeController {
 
     EmployeeDAO edao = new EmployeeDatabaseDAOImpl();
-    // EmployeeDAO edao = new EmployeeMockDAOImpl();
 
     // Get all employees
     @RequestMapping(method = RequestMethod.GET)

@@ -6,14 +6,23 @@ import java.sql.*;
 
 import java.util.ArrayList;
 import java.util.List;
+import com.example.util.Config;
 
 
 public class CustomerDatabaseDAOImpl extends OracleDS implements CustomerDAO{
     
+	private CustomerDAO edao = new MockDAOImpl();
+
 	public static final String QUERY = "SELECT C_CUSTKEY,C_NAME,C_ADDRESS,C_CITY,C_NATION,C_REGION,C_PHONE,C_MKTSEGMENT FROM ssb.customer where rownum <= ?";
 
     @Override
     public List<Customer> get(Integer num){
+
+		Boolean mockMode = Boolean.parseBoolean(Config.getValue("app.mockMode"));
+		if(mockMode){
+			return edao.get(num);
+		}
+
 		List<Customer> resultList = new ArrayList<>();
 		Connection connection = null;
 		PreparedStatement stmt = null;

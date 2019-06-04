@@ -6,10 +6,13 @@ import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.example.util.Config;
 
 public class EmployeeDatabaseDAOImpl extends OracleDS implements EmployeeDAO{
     
     List<Employee> eList = null;
+	EmployeeDAO edao = new MockDAOImpl();
+
 
 	public List<Employee> query(String sqlQueryStr) {
 		List<Employee> resultList = new ArrayList<>();
@@ -63,6 +66,13 @@ public class EmployeeDatabaseDAOImpl extends OracleDS implements EmployeeDAO{
 
     @Override
     public List<Employee> getAllEmployees(){
+
+		Boolean mockMode = Boolean.parseBoolean(Config.getValue("app.mockMode"));
+		if(mockMode){
+			return edao.getAllEmployees();
+		}
+
+
 		String queryStr = "SELECT * FROM EMPLOYEE";
 		List<Employee> resultList = this.query(queryStr);
         return resultList;	
@@ -111,6 +121,13 @@ public class EmployeeDatabaseDAOImpl extends OracleDS implements EmployeeDAO{
     
     @Override
     public boolean add(Employee employee){
+
+		Boolean mockMode = Boolean.parseBoolean(Config.getValue("app.mockMode"));
+		if(mockMode){
+			return edao.add(employee);
+		}
+
+
 		String insertTableSQL = "INSERT INTO EMPLOYEE "
 				+ "(ID, FIRSTNAME, LASTNAME, EMAIL, PHONE, BIRTHDATE, TITLE, DEPARTMENT) "
 				+ "VALUES(EMPLOYEE_SEQ.NEXTVAL,?,?,?,?,?,?,?)";
@@ -166,6 +183,13 @@ public class EmployeeDatabaseDAOImpl extends OracleDS implements EmployeeDAO{
     
     @Override
     public boolean update(long id, Employee employee){
+
+		Boolean mockMode = Boolean.parseBoolean(Config.getValue("app.mockMode"));
+		if(mockMode){
+			return edao.update(id, employee);
+		}
+
+
 		String updateTableSQL = "UPDATE EMPLOYEE SET FIRSTNAME=?, LASTNAME=?, EMAIL=?, PHONE=?, BIRTHDATE=?, TITLE=?, DEPARTMENT=?  WHERE ID=?";
 
 		Connection connection = null;

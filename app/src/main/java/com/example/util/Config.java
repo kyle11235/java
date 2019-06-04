@@ -22,7 +22,7 @@ public class Config {
 				// read env
 				String configHome = System.getenv(ENV_CONFIG_HOME);
 				System.out.println(ENV_CONFIG_HOME + "=" + configHome);
-				
+
 				if (configHome != null) {
 					CONFIG_HOME = new File(configHome);
 				} else {
@@ -30,7 +30,7 @@ public class Config {
 					CONFIG_HOME = new File(FileUtils.getUserDirectory(), DIR_CONFIG);
 				}
 				System.out.println("Config home will be " + CONFIG_HOME.getAbsolutePath());
-				
+
 				// read config
 				pps.load(new FileInputStream(CONFIG_HOME + File.separator + CONFIG_FILE));
 
@@ -39,11 +39,13 @@ public class Config {
 			}
 		}
 	}
-	
+
 	public static String getValue(String key) {
 		if (pps == null) {
 			init();
 		}
 		return pps.getProperty(key);
 	}
+
+
 }

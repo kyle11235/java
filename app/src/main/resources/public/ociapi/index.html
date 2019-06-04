@@ -9,11 +9,9 @@
 
   <script>
     var promptDialog=false;
-    var server="/api/";
+    var server="/api/db/";
     $(function(){
-      
         loadcustomers();
-      
   });
 
   </script>
@@ -91,7 +89,7 @@
   peopleTemplate.render = function(obj){
   return ""+
   "    <div class=\"peopleItem\">"+
-  "    <div class=\"portrait\"><img src=\"/nopic.png\"></div>"+
+  "    <div class=\"portrait\"><img src=\"/ociapi/nopic.png\"></div>"+
   "    <div class=\"peopleContent\">"+
   "      <h4>"+obj.dbName + "</h4>"+
   "      <span style=\"color:#76b417\">"+obj.lifecycleState+"</span><br>"+
@@ -106,8 +104,8 @@
   detailTemplate.render = function(obj){
   return "" +
   "  <div class=\"peopleTitle\">"+
-  "    <div class=\"portrait\"><a href=\"#\" class=\"backButton\"><img src=\"/back.png\"></a></div>"+
-  "    <div class=\"portrait\"><img src=\"/nopic.png\"></div>"+
+  "    <div class=\"portrait\"><a href=\"#\" class=\"backButton\"><img src=\"/ociapi/back.png\"></a></div>"+
+  "    <div class=\"portrait\"><img src=\"/ociapi/nopic.png\"></div>"+
   "    <div class=\"peopleContent\">"+
   "      <h3>"+obj.dbName+"</h3>"+
   "      <span style=\"color:#76b417\">"+obj.lifecycleState+"</span><br>"+
@@ -116,13 +114,13 @@
   "  </div>"+
   
   "  <div style=\"padding-left:35px;\">"+
-  "    <a href=\"#\" class=\"editButton\"><img src=\"/edit.png\">Edit</a>"+
+  "    <a href=\"#\" class=\"editButton\"><img src=\"/ociapi/edit.png\">Edit</a>"+
   "  </div>"+
   "  <div style=\"padding-left:35px;\">"+
-  "    <a href=\"#\" class=\"startButton\"><img src=\"/edit.png\">Start</a>"+
+  "    <a href=\"#\" class=\"startButton\"><img src=\"/ociapi/edit.png\">Start</a>"+
   "  </div>"+
   "  <div style=\"padding-left:35px;\">"+
-  "    <a href=\"#\" class=\"stopButton\"><img src=\"/edit.png\">Stop</a>"+
+  "    <a href=\"#\" class=\"stopButton\"><img src=\"/ociapi/edit.png\">Stop</a>"+
   "  </div>"+
   "";
   }
@@ -145,7 +143,7 @@
                 $("#detail").html("Starting...");
                 $( this ).dialog( "close" );
                 $.ajax({
-                  url:server +"db/"+customer.id + "/actions/start",
+                  url:server +customer.id + "/actions/start",
                   method:"POST"
                   }).done(function(data){
                     $("#detail").hide();
@@ -171,7 +169,7 @@
                   $("#detail").html("Stoping...");
                   $( this ).dialog( "close" );
                   $.ajax({
-                    url:server +"db/"+customer.id + "/actions/stop",
+                    url:server +customer.id + "/actions/stop",
                     method:"POST"
                     }).done(function(data){
                       $("#detail").hide();
@@ -186,6 +184,8 @@
           });
         element.find(".editButton").on("click",function(){
           $("#cpuCoreCount").val(customer.cpuCoreCount);
+          
+
          
 
           $('#editDialog').dialog({
@@ -197,7 +197,7 @@
                 $("#detail").html("UPDATING...");
                 $( this ).dialog( "close" );
                 $.ajax({
-                  url:server +"db/"+customer.id,
+                  url:server +customer.id,
                   method:"PUT",
                   data:$("#cpuCoreCount").val(),
                   contentType: 'application/json',
@@ -249,7 +249,7 @@
                     };
                    
                     $.ajax({
-                      url:server +"customers",
+                      url:server,
                       method:"POST",
                       data:JSON.stringify(addcustomer),
                       contentType: 'application/json',
@@ -298,7 +298,7 @@
                 $("#detail").html("ADDING...");
                 $( this ).dialog( "close" );
                 $.ajax({
-                  url:server +"customers",
+                  url:server,
                   method:"POST",
                   data:JSON.stringify(addcustomer),
                   contentType: 'application/json',
@@ -320,7 +320,8 @@
           $("#people").show();
           $("#people").html("SEARCHING...");
           $.ajax({
-            url:server+"customers/"+ $("#searchType").val()+"/"+encodeURIComponent(searchTerm),
+            url:server+ $("#searchType").val()+"/"+encodeURIComponent(searchTerm),
+            dataType:"text",
             method:"GET"
           }).done(function(data){
             $("#people").empty();
@@ -358,7 +359,8 @@
         $("#people").show();
         $("#people").html("LOADING...");
         $.ajax({
-          url:server +"db",
+          url:server,
+          dataType:"text",
           method:"GET"
         }).done(function(data){
           data = JSON.parse(data);
@@ -417,7 +419,7 @@
       <fieldset>
 
         <label for="cpuCoreCount">cpuCoreCount</label><input type="text" id="cpuCoreCount" value="" class="text ui-widget-content ui-corner-all">
-       
+               
         <!-- Allow form submission with keyboard without duplicating the dialog button -->
         <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
       </fieldset>

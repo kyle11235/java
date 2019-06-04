@@ -44,7 +44,6 @@ import org.tomitribe.auth.signatures.PEM;
 import org.tomitribe.auth.signatures.Signature;
 import org.tomitribe.auth.signatures.Signer;
 
-import com.example.util.Config;
 /*
 * @version 1.0.1
 *
@@ -58,6 +57,13 @@ import com.google.common.collect.ImmutableList;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.hash.Hashing;
 
+
+
+import com.example.util.Config;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import java.util.Arrays;
+
+
 public class OCIAPI {
 
 	public static final String API_LIST = "/20160918/autonomousDatabases?compartmentId=%s";
@@ -66,11 +72,19 @@ public class OCIAPI {
 	public static final String API_STOP = "/20160918/autonomousDatabases/%s/actions/stop";
 
 	public static final CloseableHttpClient httpclient = HttpClients.createDefault();
+	public static final	ObjectMapper mapper = new ObjectMapper();
 
-	public static String listAutonomousDatabases(String compartmentID) {
+	public List<DB> listAutonomousDatabases(String compartmentID) {
+
+		Boolean mockMode = Boolean.parseBoolean(Config.getValue("app.mockMode"));
+		if(mockMode){
+			return MockOCIAPI.listAutonomousDatabases(compartmentID);
+		}
+
+
 		if (compartmentID == null) {
 			System.out.println("invalid compartmentID=" + compartmentID);
-			return "invalid compartmentID";
+			return null;
 		}
 		HttpRequestBase request;
 		String uri = String.format("https://" + Config.getValue("oci.apiHost") + API_LIST, compartmentID);
@@ -85,14 +99,17 @@ public class OCIAPI {
 			try {
 				result = EntityUtils.toString(response.getEntity());
 				System.out.println("result=" + result);
-				return result;
+
+           		DB[] dbs = mapper.readValue(result, DB[].class);
+           		
+				return Arrays.asList(dbs);
 			} finally {
 				response.close();
 			}
 
 		} catch (Exception e) {
 			e.printStackTrace();
-			return e.getMessage();
+			return null;
 		} finally {
 			try {
 				if (response != null) {
@@ -105,6 +122,13 @@ public class OCIAPI {
 	}
 
 	public static String updateAutonomousDatabase(String dbID, Integer cpuCount) throws UnsupportedEncodingException {
+		
+		Boolean mockMode = Boolean.parseBoolean(Config.getValue("app.mockMode"));
+		if(mockMode){
+			return MockOCIAPI.updateAutonomousDatabase(dbID, cpuCount);
+		}
+
+
 		if (dbID == null) {
 			System.out.println("invalid dbID=" + dbID);
 			return "invalid dbID";
@@ -145,6 +169,12 @@ public class OCIAPI {
 	}
 
 	public static String startAutonomousDatabase(String dbID) throws UnsupportedEncodingException {
+
+		Boolean mockMode = Boolean.parseBoolean(Config.getValue("app.mockMode"));
+		if(mockMode){
+			return MockOCIAPI.startAutonomousDatabase(dbID);
+		}
+
 		if (dbID == null) {
 			System.out.println("invalid dbID=" + dbID);
 			return "invalid dbID";
@@ -178,6 +208,12 @@ public class OCIAPI {
 	}
 
 	public static String stopAutonomousDatabase(String dbID) throws UnsupportedEncodingException {
+
+		Boolean mockMode = Boolean.parseBoolean(Config.getValue("app.mockMode"));
+		if(mockMode){
+			return MockOCIAPI.stopAutonomousDatabase(dbID);
+		}
+
 		if (dbID == null) {
 			System.out.println("invalid dbID=" + dbID);
 			return "invalid dbID";
@@ -427,8 +463,6 @@ public class OCIAPI {
 		}
 	}
 
-	public static void main(String[] args) throws Exception {
-		System.out.println(OCIAPI.listAutonomousDatabases(Config.getValue("oci.compartmentID")));
-	}
+	
 
 }

@@ -8,20 +8,9 @@
   <link href="https://code.jquery.com/ui/1.11.4/themes/cupertino/jquery-ui.css" rel="stylesheet">
 
   <script>
-    var promptDialog=true;
-    var server="";
+    var server="/api/employees/";
     $(function(){
-      if(promptDialog){
-        $("#connectDialog").dialog({ closeOnEscape: false, modal: true, width: "auto", resize: "auto", open: function (event, ui) { $(".ui-dialog-titlebar-close", ui.dialog | ui).hide(); } });
-        $("#connect").button().on("click", function () {
-          $(".ui-dialog-titlebar-close").click();
-          server = $("#servUrl").val();
-          user = $("#userName").val()
-          loadEmployees();
-        });
-      }else{
         loadEmployees();
-      }
   });
 
   </script>
@@ -155,7 +144,7 @@
                 $("#detail").html("DELETING...");
                 $( this ).dialog( "close" );
                 $.ajax({
-                  url:server +"/api/employees/"+employee.id,
+                  url:server +employee.id,
                   method:"DELETE"
                   }).done(function(data){
                     $("#detail").hide();
@@ -195,7 +184,7 @@
                 $("#detail").html("UPDATING...");
                 $( this ).dialog( "close" );
                 $.ajax({
-                  url:server +"api/employees/"+employee.id,
+                  url:server +employee.id,
                   method:"PUT",
                   data:JSON.stringify(editEmployee),
                   contentType: 'application/json',
@@ -243,7 +232,7 @@
                 $("#detail").html("ADDING...");
                 $( this ).dialog( "close" );
                 $.ajax({
-                  url:server +"api/employees",
+                  url:server,
                   method:"POST",
                   data:JSON.stringify(addEmployee),
                   contentType: 'application/json',
@@ -265,7 +254,7 @@
           $("#people").show();
           $("#people").html("SEARCHING...");
           $.ajax({
-            url:server+"/api/employees/"+ $("#searchType").val()+"/"+encodeURIComponent(searchTerm),
+            url:server + $("#searchType").val()+"/"+encodeURIComponent(searchTerm),
             method:"GET"
           }).done(function(data){
             $("#people").empty();
@@ -303,7 +292,7 @@
         $("#people").show();
         $("#people").html("LOADING...");
         $.ajax({
-          url:server +"api/employees",
+          url:server,
           method:"GET"
         }).done(function(data){
           $("#people").hide();
@@ -391,11 +380,7 @@
     </form>
   </div>
 
-  <div id="connectDialog" title="Please select your service.">
-    <input id="servUrl" type="text" size="60" value="http://132.145.83.160:8080/" /><br/>
-    <button id="connect">Connect</button>
-  </div>
-
+  
 </body>
 
 </html>
