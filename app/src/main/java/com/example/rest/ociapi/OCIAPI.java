@@ -59,7 +59,7 @@ import com.google.common.hash.Hashing;
 
 
 
-import com.example.util.Config;
+import com.example.util.*;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import java.util.Arrays;
 
@@ -100,8 +100,18 @@ public class OCIAPI {
 				result = EntityUtils.toString(response.getEntity());
 				System.out.println("result=" + result);
 
-           		DB[] dbs = mapper.readValue(result, DB[].class);
-           		
+				DB[] dbs = mapper.readValue(result, DB[].class);
+				for (int i = 0; i < dbs.length; i++) {
+					DB db = dbs[i];
+					String value = SchedulerConfig.getValue(db.getID() + "-" + MyScheduler.ACTION_START);
+					if(value != null) {
+						db.setCronStart(value);
+					}
+					value = SchedulerConfig.getValue(db.getID() + "-" + MyScheduler.ACTION_STOP);
+					if(value != null) {
+						db.setCronStop(value);
+					}
+				}
 				return Arrays.asList(dbs);
 			} finally {
 				response.close();

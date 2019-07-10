@@ -76,6 +76,10 @@
       display: none;
     }
 
+    #cronDialog {
+      display: none;
+    }
+
     #addDialog {
       display: none;
     }
@@ -95,6 +99,7 @@
   "      <span style=\"color:#76b417\">"+obj.lifecycleState+"</span><br>"+
   "      <small>OCPU:"+obj.cpuCoreCount+"</small>"+
   "    </div>"+
+  "  </div>"+
   "  </div>"+
   "";
   }
@@ -121,6 +126,13 @@
   "  </div>"+
   "  <div style=\"padding-left:35px;\">"+
   "    <a href=\"#\" class=\"stopButton\"><img src=\"/ociapi/edit.png\">Stop</a>"+
+  "  </div>"+
+
+  "  <div style=\"padding-left:35px;\">"+
+  "    <a href=\"#\" class=\"s-startButton\"><img src=\"/ociapi/edit.png\">Schedule Start</a>"+
+  "  </div>"+
+  "  <div style=\"padding-left:35px;\">"+
+  "    <a href=\"#\" class=\"s-stopButton\"><img src=\"/ociapi/edit.png\">Schedule Stop</a>"+
   "  </div>"+
   "";
   }
@@ -182,12 +194,65 @@
               }
             });
           });
+
+
+
+          element.find(".s-startButton").on("click",function(){
+              $("#cron").val(customer.cronStart);
+            $('#cronDialog').dialog({
+              modal:true,
+              title: customer.dbName,
+              buttons: {
+                "Update": function(){
+                
+                  $("#detail").html("UPDATING...");
+                  $( this ).dialog( "close" );
+                  $.ajax({
+                    url:server +"schedule/"+customer.id + "/start?cron=" + $("#cron").val(),
+                    method:"GET",
+                    contentType: 'application/json',
+                    }).done(function(data){
+                      $("#detail").hide();
+                      loadcustomers();
+                  });
+                },
+                Cancel: function() {
+                  $(this).dialog( "close" );
+                }
+              }
+            });
+        });
+
+        element.find(".s-stopButton").on("click",function(){
+            $("#cron").val(customer.cronStop);
+            $('#cronDialog').dialog({
+              modal:true,
+              title: customer.dbName,
+              buttons: {
+                "Update": function(){
+                
+                  $("#detail").html("UPDATING...");
+                  $( this ).dialog( "close" );
+                  $.ajax({
+                    url:server +"schedule/"+customer.id + "/stop?cron=" + $("#cron").val(),
+                    method:"GET",
+                    contentType: 'application/json',
+                    }).done(function(data){
+                      $("#detail").hide();
+                      loadcustomers();
+                  });
+                },
+                Cancel: function() {
+                  $(this).dialog( "close" );
+                }
+              }
+            });
+        });
+
+
+
         element.find(".editButton").on("click",function(){
           $("#cpuCoreCount").val(customer.cpuCoreCount);
-          
-
-         
-
           $('#editDialog').dialog({
             modal:true,
             title: customer.dbName,
@@ -420,6 +485,19 @@
 
         <label for="cpuCoreCount">cpuCoreCount</label><input type="text" id="cpuCoreCount" value="" class="text ui-widget-content ui-corner-all">
                
+        <!-- Allow form submission with keyboard without duplicating the dialog button -->
+        <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
+      </fieldset>
+    </form>
+  </div>
+
+  <div id="cronDialog">
+    <p class="validateTips">set empty or cron expression <a target="_blank" href="https://docs.spring.io/spring/docs/current/javadoc-api/org/springframework/scheduling/support/CronSequenceGenerator.html">example</a></p>
+    <form>
+      <fieldset>
+
+        <label for="cron">cron</label><input type="text" id="cron" value="" class="text ui-widget-content ui-corner-all">
+       
         <!-- Allow form submission with keyboard without duplicating the dialog button -->
         <input type="submit" tabindex="-1" style="position:absolute; top:-1000px">
       </fieldset>

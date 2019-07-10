@@ -4,7 +4,7 @@ import java.io.UnsupportedEncodingException;
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
 
-import com.example.util.Config;
+import com.example.util.*;
 
 public class MockOCIAPI {
 
@@ -19,6 +19,17 @@ public class MockOCIAPI {
   }
 
 	public static List<DB> listAutonomousDatabases(String compartmentID) {
+		for (int i = 0; i < list.size(); i++) {
+			DB db = list.get(i);
+			String value = SchedulerConfig.getValue(db.getID() + "-" + MyScheduler.ACTION_START);
+			if(value != null) {
+				db.setCronStart(value);
+			}
+			value = SchedulerConfig.getValue(db.getID() + "-" + MyScheduler.ACTION_STOP);
+			if(value != null) {
+				db.setCronStop(value);
+			}
+		}
 		return list;
 	}
 
