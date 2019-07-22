@@ -29,8 +29,8 @@ public class OracleDS {
 			pps.setProperty("InitialLimit", Config.getValue("db.initSize"));
 			pps.setProperty("MinLimit", Config.getValue("db.minSize"));
 			pps.setProperty("MaxLimit", Config.getValue("db.maxSize"));
-			ds.setConnectionProperties(pps);
-			ds.setImplicitCachingEnabled(true);
+			ds.setConnectionCacheProperties(pps);
+			ds.setConnectionCachingEnabled(true);
 			// warm up
 			ds.getConnection().close();
 		}
