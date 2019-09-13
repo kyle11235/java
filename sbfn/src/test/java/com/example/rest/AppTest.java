@@ -44,7 +44,7 @@ public class AppTest
 
         try {
 
-            String dbUser = System.getenv().getOrDefault("DB_USER", "xxx");
+            String dbUser = System.getenv().getOrDefault("DB_USER", "fnusername");
             System.err.println("DB User " + dbUser);
 
             String dbPasswd = System.getenv().getOrDefault("DB_PASSWORD", "xxx");
@@ -53,7 +53,7 @@ public class AppTest
             System.err.println("DB Service name " + dbServiceName);
 
             String tnsAdminLocation = "/function/wallet";
-            tnsAdminLocation = "/Users/kyle/workspace/java/app/config/Wallet_adwhb";
+            tnsAdminLocation = "/Users/kyle/workspace/java/sbfn/wallet";
 
             System.err.println("TNS Admin location " + tnsAdminLocation);
 

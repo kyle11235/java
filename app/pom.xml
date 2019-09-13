@@ -77,6 +77,13 @@
             <version>1.0.0.1</version>
         </dependency>    
         
+        <!-- for ucp pool -->
+         <dependency>
+            <groupId>com.oracle</groupId>
+            <artifactId>ucp</artifactId>
+            <version>1.0.0.1</version>
+        </dependency>
+
 	        
 	    <!-- oracle cloud api -->
 	    <dependency>

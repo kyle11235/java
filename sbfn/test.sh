@@ -1,0 +1,1 @@
+echo -n '{"emp_email": "ab@b.com","emp_name": "abhishek","emp_dept": "Product Divison"}' | fn invoke sbfn create-emp

@@ -1,50 +1,19 @@
-package com.example.rest;
-
-import junit.framework.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
+package io.fnproject.example;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.util.Properties;
 
-/**
- * Unit test for simple App.
- */
-public class AppTest 
-    extends TestCase
-{
+public class CreateEmployeeFunction {
+
     private Connection conn = null;
     private String message = null;
 
-    /**
-     * Create the test case
-     *
-     * @param testName name of the test case
-     */
-    public AppTest( String testName )
-    {
-        super( testName );
-    }
-
-    /**
-     * @return the suite of tests being tested
-     */
-    public static Test suite()
-    {
-        return new TestSuite( AppTest.class );
-    }
-
-    /**
-     * Rigourous Test :-)
-     */
-    public void testApp()
-    {
-
+    public CreateEmployeeFunction() {
         try {
 
-            String dbUser = System.getenv().getOrDefault("DB_USER", "xxx");
+            String dbUser = System.getenv().getOrDefault("DB_USER", "fnusername");
             System.err.println("DB User " + dbUser);
 
             String dbPasswd = System.getenv().getOrDefault("DB_PASSWORD", "xxx");
@@ -53,7 +22,6 @@ public class AppTest
             System.err.println("DB Service name " + dbServiceName);
 
             String tnsAdminLocation = "/function/wallet";
-            tnsAdminLocation = "/Users/kyle/workspace/java/app/config/Wallet_adwhb";
 
             System.err.println("TNS Admin location " + tnsAdminLocation);
 
@@ -76,6 +44,39 @@ public class AppTest
             System.err.println("DB connectivity failed due - " + e.getMessage());
             message = e.getMessage();
         }
-        assertTrue( conn != null );
     }
+
+    public String handle(CreateEmployeeInfo empInfo) {
+        return create(empInfo);
+    }
+
+    private String create(CreateEmployeeInfo empInfo) {
+        String status = "Failed to insert employee " + empInfo;
+
+        if (conn == null) {
+            System.err.println("Warning: JDBC connection was 'null'");
+            return status + message;
+        }
+
+        System.err.println("Inserting employee info into DB " + empInfo);
+
+        int updated = 0;
+        try (PreparedStatement st = conn.prepareStatement("INSERT INTO EMPLOYEES VALUES (?,?,?)")) {
+            st.setString(1, empInfo.getEmp_email());
+            st.setString(2, empInfo.getEmp_name());
+            st.setString(3, empInfo.getEmp_dept());
+
+            updated = st.executeUpdate();
+
+            System.err.println(updated + " rows inserted");
+            status = "Created employee " + empInfo;
+
+        } catch (Exception se) {
+            System.err.println("Unable to insert data into DB due to - " + se.getMessage());
+            return se.getMessage();
+        }
+
+        return status;
+    }
+
 }
