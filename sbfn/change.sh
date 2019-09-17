@@ -1,1 +1,0 @@
-chown -R opc:opc /home/opc/*

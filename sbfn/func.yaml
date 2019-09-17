@@ -1,5 +1,0 @@
-schema_version: 20180708
-name: create-emp
-version: 0.0.26
-runtime: java
-timeout: 120
