@@ -1,1 +1,0 @@
-use adw builtin table - ssb.customer
